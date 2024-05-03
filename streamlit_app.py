@@ -45,9 +45,7 @@ def bebado():
                 break
 
         st.write("Fim da simulação")
-        st.dataframe(historico)
-        fig = px.scatter(x=historico[0], y=historico[1])
-        fig
+        st.line_chart(data=np.array(historico))
 
 
 def modelagem_simulacao():
