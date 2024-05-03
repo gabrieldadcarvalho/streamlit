@@ -8,6 +8,6 @@ raw_url = "https://raw.githubusercontent.com/gabrieldacarvalho/gabrieldacarvalho
 response = requests.get(raw_url)
 
 
-st.image("https://www.example.com/sua_foto.jpg", caption='Sua Foto', use_column_width=True)
+st.image("pictures/me_picture.jpg", caption="Sua Foto", use_column_width=True)
 
 st.markdown(response.text)
