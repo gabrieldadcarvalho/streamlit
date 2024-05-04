@@ -50,16 +50,11 @@ def bebado():
             data=go.Scatter(
                 x=[pos[0] for pos in historico],
                 y=[pos[1] for pos in historico],
-                mode="markers",
-            )
-        )
-        fig.add_trace(
-            go.Scatter(
-                x=[i[0]],
-                y=[i[1]],
+                text=[
+                    str(q) if q == len(historico) - 1 else ""
+                    for q in range(len(historico))
+                ],
                 mode="markers+text",
-                text=f"Passo {q}",
-                textposition="top center",
             )
         )
         st.plotly_chart(fig)
