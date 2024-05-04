@@ -53,6 +53,15 @@ def bebado():
                 mode="markers",
             )
         )
+        fig.add_trace(
+            go.Scatter(
+                x=[i[0]],
+                y=[i[1]],
+                mode="markers+text",
+                text=f"Passo {q}",
+                textposition="top center",
+            )
+        )
         st.plotly_chart(fig)
 
 
