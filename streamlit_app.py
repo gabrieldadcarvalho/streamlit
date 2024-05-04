@@ -52,7 +52,7 @@ def bebado():
                 y=[pos[1] for pos in historico],
                 mode="markers+text",
                 text=[str(p) for p in range(len(historico))],
-                textposition="top center",
+                textposition="bottom center",
             )
         )
         st.plotly_chart(fig)
