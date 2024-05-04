@@ -38,7 +38,7 @@ def bebado():
 
     q = st.slider("Qual o limite de passos:", 0, 1000, 0)
     if q != 0:
-        for _ in range(q):
+        for passo in range(1, q + 1):
             direcao_escolhida = np.random.choice(range(len(direcao)))
             i += direcao[direcao_escolhida]
             historico.append(i.copy())
@@ -51,7 +51,7 @@ def bebado():
                 x=[pos[0] for pos in historico],
                 y=[pos[1] for pos in historico],
                 mode="markers+text",
-                text=(str(p) for p in range(len(historico))),
+                text=[str(p) for p in range(len(historico))],
                 textposition="top center",
             )
         )
