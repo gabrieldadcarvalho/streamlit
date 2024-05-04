@@ -1,3 +1,4 @@
+from logging.config import dictConfig
 import streamlit as st
 import requests
 import numpy as np
@@ -45,7 +46,12 @@ def bebado():
             if np.all(i == f):
                 break
 
-        st.write("Fim da simulação")
+        st.markdown(
+            f'<p style="color: green;">FIM DA SIMULAÇÃO</p>', unsafe_allow_html=True
+        )
+        st.write("Histórico de passos: ")
+        st.dataframe(historico)
+        st.write("Gráfico de passos: ")
         fig = go.Figure(
             data=go.Scatter(
                 x=[pos[0] for pos in historico],
@@ -54,10 +60,12 @@ def bebado():
                     "Passo " + str(q) if q == len(historico) - 1 else ""
                     for q in range(len(historico))
                 ],
-                color=[
-                    "red" if q == len(historico) - 1 else "blue"
-                    for q in range(len(historico))
-                ],
+                marker=dict(
+                    color=[
+                        "red" if q == len(historico) - 1 else "lightblue"
+                        for q in range(len(historico))
+                    ]
+                ),
                 textposition="bottom center",
                 mode="markers+text",
             )
