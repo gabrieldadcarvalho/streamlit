@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import numpy as np
-import plotly.express as px
 import plotly.graph_objects as go
 
 
@@ -26,28 +25,63 @@ import numpy as np
 
 
 def bebado():
+    def chega_5_5(i, f, direcao, historico):
+        cont = 0
+        while not np.all(i == f):
+            direcao_escolhida = np.random.choice(range(len(direcao)))
+            i += direcao[direcao_escolhida]
+            historico.append(i.copy())
+            cont += 1
+            if cont == 5000:
+                st.error("O BÊBADO SE PERDEU DEPOIS DE 5000 PASOS")
+                st.write("Se quiser recomeçar, aperte em aplicar novamente")
+                return True
+        st.success("O BÊBADO CHEGOU NO PONTO (5,5)")
+        return False
+
+    st.image("pictures/bebado.jpg", width=150)
     st.title("Andar do Bêbado")
     st.write(
         "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
     )
+    st.write(
+        'Os critérios de parada são: "Simular" e "Chegar no ponto (5,5)". Ao selecionar "Simular", o bêbado dará uma sequência de 0 a 1000 passos, de acordo com a quantidade desejada. Ao selecionar "Chegar no ponto (5,5)", o bêbado tentará mover-se para o ponto (5,5). Se não chegar em no máximo 5000 passos, o programa é encerrado.'
+    )
 
+    criterio = st.selectbox(
+        "Selecione uma opção", ["Simular", "Chegar no ponto (5,5)"], index=None
+    )
     direcao = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # (norte, sul, leste, oeste)
     i = np.array([0, 0])
     f = np.array([5, 5])
     historico = [i.copy()]
+    recomecar = False
 
-    q = st.slider("Qual o limite de passos:", 0, 1000, 0)
-    if q != 0:
-        for passo in range(1, q + 1):
-            direcao_escolhida = np.random.choice(range(len(direcao)))
-            i += direcao[direcao_escolhida]
-            historico.append(i.copy())
-            if np.all(i == f):
-                break
+    if criterio == "Simular":
+        q = st.slider("Qual o limite de passos:", 0, 1000, 0)
+        if st.button("Aplicar"):
+            if q != 0:
+                for passo in range(1, q + 1):
+                    direcao_escolhida = np.random.choice(range(len(direcao)))
+                    i += direcao[direcao_escolhida]
+                    historico.append(i.copy())
+                    if np.all(i == f):
+                        st.success(
+                            "O BÊBADO CHEGOU NO PONTO (5,5) depois de "
+                            + str(q)
+                            + " pasos"
+                        )
+                        break
+                    elif passo == q and not np.all(i == f):
+                        st.error("O BÊBADO SE PERDEU DEPOIS DE " + str(q) + " PASOS")
+                        st.write("Se quiser recomeçar, aperte em aplicar novamente")
+                        recomecar = True
 
-        st.markdown(
-            f'<p style="color: green;">FIM DA SIMULAÇÃO</p>', unsafe_allow_html=True
-        )
+    elif criterio == "Chegar no ponto (5,5)":
+        if st.button("Aplicar"):
+            recomecar = chega_5_5(i, f, direcao, historico)
+
+    if len(historico) > 1 and not recomecar:
         st.write("Histórico de passos: ")
         st.dataframe(historico)
         st.write("Gráfico de passos: ")
@@ -99,11 +133,9 @@ def social_links():
 
 def main():
     st.sidebar.title("Menu")
-    opcoes = ["Página Inicial", "Modelagem e Simulação"]
+    opcoes = ["Modelagem e Simulação"]
     escolha = st.sidebar.selectbox("Selecione uma página", opcoes)
-    if escolha == "Página Inicial":
-        pagina_inicio()
-    elif escolha == "Modelagem e Simulação":
+    if escolha == "Modelagem e Simulação":
         modelagem_simulacao()
     social_links()
 
