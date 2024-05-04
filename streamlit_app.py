@@ -54,6 +54,10 @@ def bebado():
                     "Passo " + str(q) if q == len(historico) - 1 else ""
                     for q in range(len(historico))
                 ],
+                color=[
+                    "red" if q == len(historico) - 1 else "blue"
+                    for q in range(len(historico))
+                ],
                 textposition="bottom center",
                 mode="markers+text",
             )
@@ -88,14 +92,12 @@ def social_links():
 
 def main():
     st.sidebar.title("Menu")
-    opcoes = ["Página Inicial", "Modelagem e Simulação", "Contato"]
+    opcoes = ["Página Inicial", "Modelagem e Simulação"]
     escolha = st.sidebar.selectbox("Selecione uma página", opcoes)
     if escolha == "Página Inicial":
         pagina_inicio()
     elif escolha == "Modelagem e Simulação":
         modelagem_simulacao()
-    elif escolha == "Contato":
-        pagina_contato()
     social_links()
 
 
