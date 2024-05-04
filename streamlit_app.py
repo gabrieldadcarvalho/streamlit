@@ -50,9 +50,7 @@ def bebado():
             data=go.Scatter(
                 x=[pos[0] for pos in historico],
                 y=[pos[1] for pos in historico],
-                mode="markers+text",
-                text=[str(p) for p in range(len(historico))],
-                textposition="bottom center",
+                mode="markers",
             )
         )
         st.plotly_chart(fig)
