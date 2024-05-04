@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 def pagina_inicio():
@@ -45,7 +46,12 @@ def bebado():
                 break
 
         st.write("Fim da simulação")
-        st.line_chart(data=np.array(historico))
+        fig = go.Figure(
+            data=go.Scatter(
+                x=[pos[0] for pos in historico], y=[pos[1] for pos in historico]
+            )
+        )
+        st.plotly_chart(fig)
 
 
 def modelagem_simulacao():
