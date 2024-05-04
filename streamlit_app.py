@@ -48,7 +48,11 @@ def bebado():
         st.write("Fim da simulação")
         fig = go.Figure(
             data=go.Scatter(
-                x=[pos[0] for pos in historico], y=[pos[1] for pos in historico]
+                x=[pos[0] for pos in historico],
+                y=[pos[1] for pos in historico],
+                mode="markers+text",
+                text=(str(p) for p in range(len(historico))),
+                textposition="top center",
             )
         )
         st.plotly_chart(fig)
