@@ -51,9 +51,10 @@ def bebado():
                 x=[pos[0] for pos in historico],
                 y=[pos[1] for pos in historico],
                 text=[
-                    str(q) if q == len(historico) - 1 else ""
+                    "Passo " + str(q) if q == len(historico) - 1 else ""
                     for q in range(len(historico))
                 ],
+                textposition="bottom center",
                 mode="markers+text",
             )
         )
