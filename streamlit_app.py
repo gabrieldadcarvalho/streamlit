@@ -39,11 +39,14 @@ def bebado():
         st.success("O BÊBADO CHEGOU NO PONTO (5,5)")
         return False
 
-    st.image("pictures/bebado.jpg", width=150)
     st.title("Andar do Bêbado")
-    st.write(
-        "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
-    )
+    col1, col2 = st.columns([1, 5])
+    with col1:
+        st.image("pictures/bebado.jpg", width=100)
+    with col2:
+        st.write(
+            "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
+        )
     st.write(
         'Os critérios de parada são: "Simular" e "Chegar no ponto (5,5)". Ao selecionar "Simular", o bêbado dará uma sequência de 0 a 1000 passos, de acordo com a quantidade desejada. Ao selecionar "Chegar no ponto (5,5)", o bêbado tentará mover-se para o ponto (5,5). Se não chegar em no máximo 5000 passos, o programa é encerrado.'
     )
@@ -68,7 +71,7 @@ def bebado():
                     if np.all(i == f):
                         st.success(
                             "O BÊBADO CHEGOU NO PONTO (5,5) depois de "
-                            + str(q)
+                            + str(len(historico) - 1)
                             + " pasos"
                         )
                         break
