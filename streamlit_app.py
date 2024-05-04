@@ -136,10 +136,12 @@ def social_links():
 
 def main():
     st.sidebar.title("Menu")
-    opcoes = ["Modelagem e Simulação"]
+    opcoes = ["pagina inicio", "Modelagem e Simulação"]
     escolha = st.sidebar.selectbox("Selecione uma página", opcoes)
     if escolha == "Modelagem e Simulação":
         modelagem_simulacao()
+    elif escolha == "pagina inicio":
+        pagina_inicio()
     social_links()
 
 
