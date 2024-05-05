@@ -1,3 +1,4 @@
+from re import I
 import streamlit as st
 import requests
 import numpy as np
@@ -18,10 +19,6 @@ def pagina_inicio():
         st.image("pictures/me_picture.jpg", width=150)
     with col2:
         st.markdown(response.text)
-
-
-import streamlit as st
-import numpy as np
 
 
 def bebado():
@@ -109,12 +106,25 @@ def bebado():
         st.plotly_chart(fig)
 
 
+def midsquare():
+    i = st.number_input("Insira um número inicial de n dígitos:", 0, 1000, 0)
+    q = st.slider("Quantos números aleatórios você deseja: ", 0, 1000, 0)
+    l = [i]
+    for x in range(q):
+        i_2 = str(l[x] ** 2).zfill(8)
+        i_2 = int(i_2[2:6])
+        l.append(i_2)
+    st.dataframe(l)
+
+
 def modelagem_simulacao():
-    opcao = ["Andar do Bêbado", "Carteira Ibovespa"]
+    opcao = ["Andar do Bêbado", "Midsquare"]
 
     escolha_m_s = st.sidebar.selectbox("Selecione uma opção", opcao)
     if escolha_m_s == "Andar do Bêbado":
         bebado()
+    elif escolha_m_s == "Midsquare":
+        midsquare()
 
 
 def pagina_contato():
