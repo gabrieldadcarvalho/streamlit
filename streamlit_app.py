@@ -1,7 +1,9 @@
+from re import split
 import streamlit as st
 import requests
 import numpy as np
 import plotly.graph_objects as go
+import pandas as pd
 
 
 def pagina_inicio():
@@ -106,20 +108,44 @@ def bebado():
 
 
 def midsquare():
-    i = [st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)]
-    q = st.slider("Quantos números aleatórios você deseja: ", 1, 1000, 1)
-    l = [i]
-    st.write(i)
+    lista_i = [st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)]
+    q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
+    if q != 0 and lista_i[0] > 1:
+        for x in range(q):
+            i_2 = lista_i[x] ** 2
+            if (
+                i_2 % 2 != 0
+                and lista_i[x] % 2 == 0
+                or i_2 % 2 == 0
+                and lista_i[x] % 2 != 0
+            ):
+                i_2 = [int(d) for d in str(i_2)]
+                i_2 = ["0"] * (int(len(i_2) - len(str(lista_i[x])))) + i_2
+                st.write(i_2)
+                media_i_1 = len(str(lista_i[x])) / 2
+                media_i_2 = len(i_2) / 2
+                sub = media_i_2 - media_i_1
+                i_2 = i_2[int(sub) : int(len(i_2) - sub)]
+                lista_i.append(int("".join(str(d) for d in i_2)))
+            else:
+                i_2 = [int(d) for d in str(i_2)]
+                media_i_1 = len(str(lista_i[x])) / 2
+                media_i_2 = len(i_2) / 2
+                sub = media_i_2 - media_i_1
+                i_2 = i_2[int(sub) : int(len(i_2) - sub)]
+                lista_i.append(int("".join(str(d) for d in i_2)))
+        df_i = pd.DataFrame(lista_i, columns=["Nº Gerados"])
+        st.dataframe(df_i)
 
 
 def modelagem_simulacao():
-    opcao = ["Andar do Bêbado"]
+    opcao = ["Andar do Bêbado", "Midsquare"]
 
     escolha_m_s = st.sidebar.selectbox("Selecione uma opção", opcao)
     if escolha_m_s == "Andar do Bêbado":
         bebado()
-    # elif escolha_m_s == "Midsquare":
-    #    midsquare()
+    elif escolha_m_s == "Midsquare":
+        midsquare()
 
 
 def pagina_contato():
