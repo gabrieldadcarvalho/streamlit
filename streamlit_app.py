@@ -108,34 +108,35 @@ def bebado():
 
 def midsquare():
     lista_i = [st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)]
+    lista_i_s = [str(lista_i[0])]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
     if q != 0 and lista_i[0] > 1:
         for x in range(q):
-            i_2 = lista_i[x] ** 2
+            i_2 = int(lista_i_s[x]) ** 2
             i_2_s = [int(d) for d in str(i_2)]
             if (
                 i_2 % 2 != 0
-                and lista_i[x] % 2 == 0
+                and int(lista_i_s[x]) % 2 == 0
                 or i_2 % 2 == 0
-                and lista_i[x] % 2 != 0
-                or len(i_2_s) < len(str(lista_i[x]))
+                and int(lista_i_s[x]) % 2 != 0
+                or len(i_2_s) < len(lista_i_s[x])
             ):
 
-                i_2 = ["0"] * (int(len(i_2_s) - len(str(lista_i[x])))) + i_2_s
-                st.write(i_2)
-                media_i_1 = len(str(lista_i[x])) / 2
+                i_2 = ["0"] * (int(len(i_2_s) - len(lista_i_s[x]))) + i_2_s
+                st.write("oi")
+                media_i_1 = len(lista_i_s[x]) / 2
                 media_i_2 = len(i_2_s) / 2
                 sub = media_i_2 - media_i_1
                 i_2_s = i_2_s[int(sub) : int(len(i_2_s) - sub)]
-                lista_i.append(int("".join(str(d) for d in i_2_s)))
+                lista_i_s.append("".join(str(d) for d in i_2_s))
             else:
 
-                media_i_1 = len(str(lista_i[x])) / 2
+                media_i_1 = len(lista_i_s[x]) / 2
                 media_i_2 = len(i_2_s) / 2
                 sub = media_i_2 - media_i_1
                 i_2_s = i_2_s[int(sub) : int(len(i_2_s) - sub)]
-                lista_i.append(int("".join(str(d) for d in i_2_s)))
-        df_i = pd.DataFrame(lista_i, columns=["Nº Gerados"])
+                lista_i_s.append("".join(str(d) for d in i_2_s))
+        df_i = pd.DataFrame(lista_i_s, columns=["Nº Gerados"])
         st.dataframe(df_i)
 
 
