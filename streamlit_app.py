@@ -107,6 +107,7 @@ def bebado():
 
 
 def midsquare():
+    st.error('CÓDIGO AINDA ESTÁ EM CONSTRUÇÃO, APRESENTANDO ALGUMAS FALHAS')
     lista_i = [st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)]
     lista_i_s = [str(lista_i[0])]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
@@ -123,7 +124,6 @@ def midsquare():
             ):
 
                 i_2 = ["0"] * (int(len(i_2_s) - len(lista_i_s[x]))) + i_2_s
-                st.write("oi")
                 media_i_1 = len(lista_i_s[x]) / 2
                 media_i_2 = len(i_2_s) / 2
                 sub = media_i_2 - media_i_1
