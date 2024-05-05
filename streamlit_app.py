@@ -106,15 +106,10 @@ def bebado():
 
 
 def midsquare():
-    i = st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)
+    i = [st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)]
     q = st.slider("Quantos números aleatórios você deseja: ", 1, 1000, 1)
     l = [i]
-    for x in range(q):
-        i_2 = str(l[x] ** 2).zfill(8)
-        i_2 = int(i_2[2:6])
-        print(i_2)
-        l.append(i_2)
-    st.write(l)
+    st.write(i)
 
 
 def modelagem_simulacao():
