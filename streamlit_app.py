@@ -106,24 +106,25 @@ def bebado():
 
 
 def midsquare():
-    i = st.number_input("Insira um número inicial de n dígitos:", 0, 1000, 0)
-    q = st.slider("Quantos números aleatórios você deseja: ", 0, 1000, 0)
+    i = st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)
+    q = st.slider("Quantos números aleatórios você deseja: ", 1, 1000, 1)
     l = [i]
     for x in range(q):
         i_2 = str(l[x] ** 2).zfill(8)
         i_2 = int(i_2[2:6])
+        print(i_2)
         l.append(i_2)
-    st.dataframe(l)
+    st.write(l)
 
 
 def modelagem_simulacao():
-    opcao = ["Andar do Bêbado", "Midsquare"]
+    opcao = ["Andar do Bêbado"]
 
     escolha_m_s = st.sidebar.selectbox("Selecione uma opção", opcao)
     if escolha_m_s == "Andar do Bêbado":
         bebado()
-    elif escolha_m_s == "Midsquare":
-        midsquare()
+    # elif escolha_m_s == "Midsquare":
+    #    midsquare()
 
 
 def pagina_contato():
