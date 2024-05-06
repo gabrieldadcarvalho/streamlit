@@ -107,7 +107,7 @@ def bebado():
 
 
 def midsquare():
-    st.error('CÓDIGO AINDA ESTÁ EM CONSTRUÇÃO, APRESENTANDO ALGUMAS FALHAS')
+    st.error("CÓDIGO AINDA ESTÁ EM CONSTRUÇÃO, APRESENTANDO ALGUMAS FALHAS")
     lista_i = [st.number_input("Insira um número inicial de n dígitos:", 0, 9999, 0)]
     lista_i_s = [str(lista_i[0])]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
