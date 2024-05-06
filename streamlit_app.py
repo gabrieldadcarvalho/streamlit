@@ -123,7 +123,6 @@ def midsquare():
             ):
 
                 i_2 = ["0"] * (int(len(i_2_s) - len(lista_i_s[x]))) + i_2_s
-                st.write("oi")
                 media_i_1 = len(lista_i_s[x]) / 2
                 media_i_2 = len(i_2_s) / 2
                 sub = media_i_2 - media_i_1
