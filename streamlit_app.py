@@ -124,9 +124,9 @@ def midsquare():
             i_2 = int(lista_i_s[x]) ** 2
             i_2_s = [int(d) for d in str(i_2)]
             if (
-                i_2 % 2 != 0
-                and int(lista_i_s[x]) % 2 == 0
-                or i_2 % 2 == 0
+                len(i_2_s) % 2 != 0
+                and len(lista_i_s[x]) % 2 == 0
+                or len(i_2_s) % 2 == 0
                 and int(lista_i_s[x]) % 2 != 0
                 or lista_i_s[x][0] == "0"
             ):
