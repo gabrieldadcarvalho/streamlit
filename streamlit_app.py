@@ -130,7 +130,7 @@ def midsquare():
                 and int(lista_i_s[x]) % 2 != 0
                 or lista_i_s[x][0] == "0"
             ):
-                i_2_s = ["0"] * (int(len(i_2_s) - len(lista_i_s[x]))) + i_2_s
+                i_2_s = ["0"] * (len(str(int(i_2_s)) - len(lista_i_s[x]))) + i_2_s
                 media_i_1 = len(lista_i_s[x]) / 2
                 media_i_2 = len(i_2_s) / 2
                 sub = media_i_2 - media_i_1
