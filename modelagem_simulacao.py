@@ -1,3 +1,86 @@
+def bebado():
+    def chega_5_5(i, f, direcao, historico):
+        cont = 0
+        while not np.all(i == f):
+            direcao_escolhida = np.random.choice(range(len(direcao)))
+            i += direcao[direcao_escolhida]
+            historico.append(i.copy())
+            cont += 1
+            if cont == 5000:
+                st.error("O BÊBADO SE PERDEU DEPOIS DE 5000 PASOS")
+                st.write("Se quiser recomeçar, aperte em aplicar novamente")
+                return True
+        st.success("O BÊBADO CHEGOU NO PONTO (5,5)")
+        return False
+
+    st.title("Andar do Bêbado")
+    col1, col2 = st.columns([1, 5])
+    with col1:
+        st.image("pictures/bebado.jpg", width=100)
+    with col2:
+        st.write(
+            "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
+        )
+    st.write(
+        'Os critérios de parada são: "Simular" e "Chegar no ponto (5,5)". Ao selecionar "Simular", o bêbado dará uma sequência de 0 a 1000 passos, de acordo com a quantidade desejada. Ao selecionar "Chegar no ponto (5,5)", o bêbado tentará mover-se para o ponto (5,5). Se não chegar em no máximo 5000 passos, o programa é encerrado.'
+    )
+
+    criterio = st.selectbox(
+        "Selecione uma opção", ["Simular", "Chegar no ponto (5,5)"], index=None
+    )
+    direcao = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # (norte, sul, leste, oeste)
+    i = np.array([0, 0])
+    f = np.array([5, 5])
+    historico = [i.copy()]
+    recomecar = False
+    if criterio == "Simular":
+        q = st.slider("Qual o limite de passos:", 0, 1000, 0)
+        if st.button("Aplicar"):
+            if q != 0:
+                for passo in range(1, q + 1):
+                    direcao_escolhida = np.random.choice(range(len(direcao)))
+                    i += direcao[direcao_escolhida]
+                    historico.append(i.copy())
+                    if np.all(i == f):
+                        st.success(
+                            "O BÊBADO CHEGOU NO PONTO (5,5) depois de "
+                            + str(len(historico) - 1)
+                            + " pasos"
+                        )
+                        break
+                    elif passo == q and not np.all(i == f):
+                        st.error("O BÊBADO SE PERDEU DEPOIS DE " + str(q) + " PASOS")
+                        st.write("Se quiser recomeçar, aperte em aplicar novamente")
+                        recomecar = True
+
+    elif criterio == "Chegar no ponto (5,5)":
+        if st.button("Aplicar"):
+            recomecar = chega_5_5(i, f, direcao, historico)
+
+    if len(historico) > 1 and not recomecar:
+        st.write("Histórico de passos: ")
+        st.dataframe(historico)
+        st.write("Gráfico de passos: ")
+        fig = go.Figure(
+            data=go.Scatter(
+                x=[pos[0] for pos in historico],
+                y=[pos[1] for pos in historico],
+                text=[
+                    "Passo " + str(q) if q == len(historico) - 1 else ""
+                    for q in range(len(historico))
+                ],
+                marker=dict(
+                    color=[
+                        "red" if q == len(historico) - 1 else "lightblue"
+                        for q in range(len(historico))
+                    ]
+                ),
+                textposition="bottom center",
+                mode="markers+text",
+            )
+        )
+        st.plotly_chart(fig)
+
 
 def midsquare():
     st.title("Método Mid-Square")
