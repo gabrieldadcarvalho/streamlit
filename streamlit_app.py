@@ -4,7 +4,6 @@ import numpy as np
 import plotly.graph_objects as go
 import pandas as pd
 
-
 def pagina_inicio():
     # URL do arquivo README.md no repositório do GitHub
     raw_url = (
