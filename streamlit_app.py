@@ -117,7 +117,7 @@ def midsquare():
              \n⮩ x² ** 2 = 288369 ➟ 02<u>**883**</u>69 (correção)\
              \nx³ = 883",unsafe_allow_html=True)
     st.write('_'*3)
-    lista_i_s = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 999999, 0))]
+    lista_i_s = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
     if q != 0 and int(lista_i_s[0]) > 0:
         for x in range(q):
