@@ -3,7 +3,7 @@ import requests
 import numpy as np
 import plotly.graph_objects as go
 import pandas as pd
-
+import math 
 def pagina_inicio():
     # URL do arquivo README.md no repositório do GitHub
     raw_url = (
@@ -121,12 +121,12 @@ def midsquare():
     if q != 0 and int(lista_n[0]) > 0:
         for x in range(q):
             x_2 = str(int(lista_n[x]) ** 2)
-            n = len(lista_n[x])
+            if lista_n[x][0] == '0':
+                x_2 = x_2.zfill(len(x_2) + 1)
+            n = len(str(lista_n[x]))
             n2 = len(x_2)
-            mid_x_2 = x_2[(n2 - n) // 2 : (n2 + n) // 2]
+            mid_x_2 = x_2[(n2 - n) // 2 :(n2 + n) // 2]
             lista_n.append(mid_x_2)
-            print(n)
-            print(n2)
         df_i = pd.DataFrame(lista_n, columns=["Nº Gerados"])
         st.dataframe(df_i)
 
