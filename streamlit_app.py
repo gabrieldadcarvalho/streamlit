@@ -125,6 +125,8 @@ def midsquare():
             n2 = len(x_2)
             mid_x_2 = x_2[(n2 - n) // 2 : (n2 + n) // 2]
             lista_n.append(mid_x_2)
+            print(n)
+            print(n2)
         df_i = pd.DataFrame(lista_n, columns=["Nº Gerados"])
         st.dataframe(df_i)
 
