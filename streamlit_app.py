@@ -1,10 +1,8 @@
 import streamlit as st
 import requests
-import numpy as np
-import plotly.graph_objects as go
-import pandas as pd
+import def_modelagem_simulacao
 
-def pagina_inicio():
+def pag_inicio():
     # URL do arquivo README.md no repositório do GitHub
     raw_url = (
         "https://raw.githubusercontent.com/gabrieldacarvalho/streamlit/main/README.md"
@@ -20,136 +18,13 @@ def pagina_inicio():
         st.markdown(response.text)
 
 
-def bebado():
-    def chega_5_5(i, f, direcao, historico):
-        cont = 0
-        while not np.all(i == f):
-            direcao_escolhida = np.random.choice(range(len(direcao)))
-            i += direcao[direcao_escolhida]
-            historico.append(i.copy())
-            cont += 1
-            if cont == 2000:
-                st.error("O BÊBADO SE PERDEU DEPOIS DE 2000 PASOS")
-                st.write("Se quiser recomeçar, aperte em aplicar novamente")
-                return True
-        st.success("O BÊBADO CHEGOU NO PONTO (5,5)")
-        return False
-
-    st.title("Andar do Bêbado")
-    col1, col2 = st.columns([1, 5])
-    with col1:
-        st.image("pictures/bebado.jpg", width=100)
-    with col2:
-        st.write(
-            "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
-        )
-    st.write(
-        'Os critérios de parada são: "Simular" e "Chegar no ponto (5,5)". Ao selecionar "Simular", você pode definir a\
-            quantidade de passos que o bêbado dará a partir de 0 a 5000 passos, de acordo com a quantidade desejada.\
-                Ao selecionar "Chegar no ponto (5,5)", o bêbado tentará mover-se para o ponto (5,5).\
-                    Se não chegar em no máximo 2000 passos, o programa é encerrado.'
-    )
-    st.warning("**GRANDES QUANTIDADES DE SIMULAÇÕES PODEM DEIXAR A PÁGINA MAIS LENTA** ", icon="⚠️")
-
-    criterio = st.radio(
-    "Selecione uma opção",
-    ("Simular", "Chegar no ponto (5,5)"),
-    format_func=lambda x: "Simular" if x == "Simular" else "Chegar no ponto (5,5)",)
-    direcao = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # (norte, sul, leste, oeste)
-    i = np.array([0, 0])
-    f = np.array([5, 5])
-    historico = [i.copy()]
-    recomecar = False
-    if criterio == "Simular":
-        q = st.slider("Qual o limite de passos:", 0, 5000, 0)
-        if st.button("Aplicar"):
-            if q != 0:
-                for passo in range(1, q + 1):
-                    direcao_escolhida = np.random.choice(range(len(direcao)))
-                    i += direcao[direcao_escolhida]
-                    historico.append(i.copy())
-                    if np.all(i == f):
-                        st.success(
-                            "O BÊBADO CHEGOU NO PONTO (5,5) depois de "
-                            + str(len(historico) - 1)
-                            + " pasos"
-                        )
-                        break
-                    elif passo == q and not np.all(i == f):
-                        st.error("O BÊBADO SE PERDEU DEPOIS DE " + str(q) + " PASOS")
-                        st.write("Se quiser recomeçar, aperte em aplicar novamente")
-                        recomecar = True
-
-    elif criterio == "Chegar no ponto (5,5)":
-        if st.button("Aplicar"):
-            recomecar = chega_5_5(i, f, direcao, historico)
-
-    if len(historico) > 1 and not recomecar:
-        st.write("Gráfico de passos: ")
-        fig = go.Figure()
-        
-        for i in range(len(historico) - 1):
-            fig.add_trace(go.Scatter(
-                x=[historico[i][0], historico[i + 1][0]],
-                y=[historico[i][1], historico[i + 1][1]],
-                mode="lines",
-                line=dict(color="#ADD8E6", width=2),
-                name='Passo ' + str(i + 1),
-            ))
-
-        fig.add_trace(go.Scatter(
-            x=[historico[0][0]],
-            y=[historico[0][1]],
-            mode="markers",
-            marker=dict(color="green", size=10),
-            name="Partida",
-        ))
-
-        fig.add_trace(go.Scatter(
-            x=[historico[-1][0]],
-            y=[historico[-1][1]],
-            mode="markers",
-            marker=dict(color="red", size=10),
-            name="Chegada",
-        ))
-
-        st.plotly_chart(fig)
-
-
-def midsquare():
-    st.title("Método Mid-Square")
-    st.markdown("O método Mid-Square é uma técnica de geração de números aleatórios. Neste método, o primeiro número (semente/seed) com **n** dígitos é elevado ao quadrado. \
-                Em seguida, são utilizados os **n** dígitos centrais do resultado como o próximo número na sequência. No entanto, pode haver casos em que não conseguimos obter \
-                os **n** dígitos centrais do quadrado. Para ajustar isso, devemos incluir zeros à esquerda se necessário.")
-    st.warning("**Exemplo:**", icon="✏️")
-    st.write("x¹ = 124\
-             \n⮩ x¹ ** 2 = 1<u>**537**</u>6\
-             \nx² = 537\
-             \n⮩ x² ** 2 = 288369 ➟ 02<u>**883**</u>69 (correção)\
-             \nx³ = 883",unsafe_allow_html=True)
-    st.write('_'*3)
-    lista_n = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
-    q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
-    if q != 0 and int(lista_n[0]) > 0:
-        for x in range(q):
-            x_2 = str(int(lista_n[x]) ** 2)
-            if lista_n[x][0] == '0':
-                x_2 = x_2.zfill(len(x_2) + 1)
-            n = len(str(lista_n[x]))
-            n2 = len(x_2)
-            mid_x_2 = x_2[(n2 - n) // 2 :(n2 + n) // 2]
-            lista_n.append(mid_x_2)
-        df_i = pd.DataFrame(lista_n, columns=["Nº Gerados"])
-        st.dataframe(df_i)
-
-
-def modelagem_simulacao():
+def pag_modelagem_simulacao():
     opcao = st.sidebar.radio("Problemas:", ("Andar do Bêbado", "Midsquare"),
     format_func=lambda x: "Andar do Bêbado" if x == "Andar do Bêbado" else "Midsquare")
     if opcao == "Andar do Bêbado":
-        bebado()
+        def_modelagem_simulacao.bebado()
     elif opcao == "Midsquare":
-        midsquare()
+        def_modelagem_simulacao.midsquare()
 
 
 def pagina_contato():
@@ -170,13 +45,13 @@ def social_links():
 
 
 def main():
-    st.sidebar.image("pictures/pe.png", width=200)
+    st.sidebar.image("pictures/logo_streamlit_gc.png", width=200)
     opcoes = st.sidebar.radio("Selecione uma página", ("Sobre Mim", "Modelagem e Simulação"),
     format_func=lambda x: "Sobre mim" if x == "Sobre Mim" else "Modelagem e Simulação")
     if opcoes == "Modelagem e Simulação":
-        modelagem_simulacao()
+        pag_modelagem_simulacao()
     elif opcoes == "Sobre Mim":
-        pagina_inicio()
+        pag_inicio()
     social_links()
 
 
