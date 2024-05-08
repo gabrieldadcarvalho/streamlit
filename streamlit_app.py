@@ -116,32 +116,16 @@ def midsquare():
              \n⮩ x² ** 2 = 288369 ➟ 02<u>**883**</u>69 (correção)\
              \nx³ = 883",unsafe_allow_html=True)
     st.write('_'*3)
-    lista_i_s = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
+    lista_n = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
-    if q != 0 and int(lista_i_s[0]) > 0:
+    if q != 0 and int(lista_n_s[0]) > 0:
         for x in range(q):
-            i_2 = int(lista_i_s[x]) ** 2
-            i_2_s = [int(d) for d in str(i_2)]
-            if (
-                len(i_2_s) % 2 != 0
-                and len(lista_i_s[x]) % 2 == 0
-                or len(i_2_s) % 2 == 0
-                and int(lista_i_s[x]) % 2 != 0
-                or lista_i_s[x][0] == "0"
-            ):
-                i_2_s = ["0"] * (len(i_2_s) - len(str(int(lista_i_s[x])))) + i_2_s
-                media_i_1 = len(lista_i_s[x]) / 2
-                media_i_2 = len(i_2_s) / 2
-                sub = media_i_2 - media_i_1
-                i_2_s = i_2_s[int(sub) : int(len(i_2_s) - sub)]
-                lista_i_s.append("".join(str(d) for d in i_2_s))
-            else:
-                media_i_1 = len(lista_i_s[x]) / 2
-                media_i_2 = len(i_2_s) / 2
-                sub = media_i_2 - media_i_1
-                i_2_s = i_2_s[int(sub) : int(len(i_2_s) - sub)]
-                lista_i_s.append("".join(str(d) for d in i_2_s))
-        df_i = pd.DataFrame(lista_i_s, columns=["Nº Gerados"])
+            x_2 = str(int(lista_n[x]) ** 2)
+            n = len(lista_n[x])
+            n2 = len(x_2)
+            mid_x_2 = x_2[(n2 - n) // 2 : (n2 + n) // 2]
+            lista_n.append(mid_x_2)
+        df_i = pd.DataFrame(lista_n, columns=["Nº Gerados"])
         st.dataframe(df_i)
 
 
