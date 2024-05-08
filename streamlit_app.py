@@ -118,7 +118,7 @@ def midsquare():
     st.write('_'*3)
     lista_n = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
-    if q != 0 and int(lista_n_s[0]) > 0:
+    if q != 0 and int(lista_n[0]) > 0:
         for x in range(q):
             x_2 = str(int(lista_n[x]) ** 2)
             n = len(lista_n[x])
