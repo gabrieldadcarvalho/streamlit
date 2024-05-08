@@ -1,3 +1,9 @@
+import streamlit as st
+import requests
+import numpy as np
+import plotly.graph_objects as go
+import pandas as pd
+
 def bebado():
     def chega_5_5(i, f, direcao, historico):
         cont = 0
@@ -6,8 +12,8 @@ def bebado():
             i += direcao[direcao_escolhida]
             historico.append(i.copy())
             cont += 1
-            if cont == 5000:
-                st.error("O BÊBADO SE PERDEU DEPOIS DE 5000 PASOS")
+            if cont == 2000:
+                st.error("O BÊBADO SE PERDEU DEPOIS DE 2000 PASOS")
                 st.write("Se quiser recomeçar, aperte em aplicar novamente")
                 return True
         st.success("O BÊBADO CHEGOU NO PONTO (5,5)")
@@ -22,19 +28,24 @@ def bebado():
             "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
         )
     st.write(
-        'Os critérios de parada são: "Simular" e "Chegar no ponto (5,5)". Ao selecionar "Simular", o bêbado dará uma sequência de 0 a 1000 passos, de acordo com a quantidade desejada. Ao selecionar "Chegar no ponto (5,5)", o bêbado tentará mover-se para o ponto (5,5). Se não chegar em no máximo 5000 passos, o programa é encerrado.'
+        'Os critérios de parada são: "Simular" e "Chegar no ponto (5,5)". Ao selecionar "Simular", você pode definir a\
+            quantidade de passos que o bêbado dará a partir de 0 a 5000 passos, de acordo com a quantidade desejada.\
+                Ao selecionar "Chegar no ponto (5,5)", o bêbado tentará mover-se para o ponto (5,5).\
+                    Se não chegar em no máximo 2000 passos, o programa é encerrado.'
     )
+    st.warning("**GRANDES QUANTIDADES DE SIMULAÇÕES PODEM DEIXAR A PÁGINA MAIS LENTA** ", icon="⚠️")
 
-    criterio = st.selectbox(
-        "Selecione uma opção", ["Simular", "Chegar no ponto (5,5)"], index=None
-    )
+    criterio = st.radio(
+    "Selecione uma opção",
+    ("Simular", "Chegar no ponto (5,5)"),
+    format_func=lambda x: "Simular" if x == "Simular" else "Chegar no ponto (5,5)",)
     direcao = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # (norte, sul, leste, oeste)
     i = np.array([0, 0])
     f = np.array([5, 5])
     historico = [i.copy()]
     recomecar = False
     if criterio == "Simular":
-        q = st.slider("Qual o limite de passos:", 0, 1000, 0)
+        q = st.slider("Qual o limite de passos:", 0, 5000, 0)
         if st.button("Aplicar"):
             if q != 0:
                 for passo in range(1, q + 1):
@@ -58,27 +69,34 @@ def bebado():
             recomecar = chega_5_5(i, f, direcao, historico)
 
     if len(historico) > 1 and not recomecar:
-        st.write("Histórico de passos: ")
-        st.dataframe(historico)
         st.write("Gráfico de passos: ")
-        fig = go.Figure(
-            data=go.Scatter(
-                x=[pos[0] for pos in historico],
-                y=[pos[1] for pos in historico],
-                text=[
-                    "Passo " + str(q) if q == len(historico) - 1 else ""
-                    for q in range(len(historico))
-                ],
-                marker=dict(
-                    color=[
-                        "red" if q == len(historico) - 1 else "lightblue"
-                        for q in range(len(historico))
-                    ]
-                ),
-                textposition="bottom center",
-                mode="markers+text",
-            )
-        )
+        fig = go.Figure()
+        
+        for i in range(len(historico) - 1):
+            fig.add_trace(go.Scatter(
+                x=[historico[i][0], historico[i + 1][0]],
+                y=[historico[i][1], historico[i + 1][1]],
+                mode="lines",
+                line=dict(color="#ADD8E6", width=2),
+                name='Passo ' + str(i + 1),
+            ))
+
+        fig.add_trace(go.Scatter(
+            x=[historico[0][0]],
+            y=[historico[0][1]],
+            mode="markers",
+            marker=dict(color="green", size=10),
+            name="Partida",
+        ))
+
+        fig.add_trace(go.Scatter(
+            x=[historico[-1][0]],
+            y=[historico[-1][1]],
+            mode="markers",
+            marker=dict(color="red", size=10),
+            name="Chegada",
+        ))
+
         st.plotly_chart(fig)
 
 
@@ -94,30 +112,36 @@ def midsquare():
              \n⮩ x² ** 2 = 288369 ➟ 02<u>**883**</u>69 (correção)\
              \nx³ = 883",unsafe_allow_html=True)
     st.write('_'*3)
-    lista_i_s = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
+    st.session_state.lista_n = [str(st.number_input("Insira um número inicial de n dígitos:", 0, 99999, 0))]
     q = int(st.number_input("Quantos números aleatórios você deseja: ", 1, 1000, 1))
-    if q != 0 and int(lista_i_s[0]) > 0:
+    padronizar = st.radio(
+    "Você quer padronizar os números gerados?",
+    ("Sim", "Não"),
+    format_func=lambda x: "Sim" if x == "Sim" else "Não",)
+    if st.button("Gerar Números"):
         for x in range(q):
-            i_2 = int(lista_i_s[x]) ** 2
-            i_2_s = [int(d) for d in str(i_2)]
-            if (
-                len(i_2_s) % 2 != 0
-                and len(lista_i_s[x]) % 2 == 0
-                or len(i_2_s) % 2 == 0
-                and int(lista_i_s[x]) % 2 != 0
-                or lista_i_s[x][0] == "0"
-            ):
-                i_2_s = ["0"] * (len(i_2_s) - len(str(int(lista_i_s[x])))) + i_2_s
-                media_i_1 = len(lista_i_s[x]) / 2
-                media_i_2 = len(i_2_s) / 2
-                sub = media_i_2 - media_i_1
-                i_2_s = i_2_s[int(sub) : int(len(i_2_s) - sub)]
-                lista_i_s.append("".join(str(d) for d in i_2_s))
+            x_2 = str(int(st.session_state.lista_n[x]) ** 2)
+            if st.session_state.lista_n[x][0] == '0':
+                x_2 = x_2.zfill(len(x_2) + 1)
+            n = len(str(st.session_state.lista_n[x]))
+            n2 = len(x_2)
+            mid_x_2 = x_2[(n2 - n) // 2 :(n2 + n) // 2]
+            st.session_state.lista_n.append(mid_x_2) # Converter para int
+        st.session_state.df_n = pd.DataFrame(st.session_state.lista_n, columns=["Nº Gerados"])
+        col1, col2 = st.columns([1, 3])
+        with col1:
+         st.dataframe(st.session_state.df_n)
+        with col2:
+            if padronizar == "Sim":
+                df_n_p_list = []
+                for i in range(len(st.session_state.df_n)):
+                    num = int(st.session_state.df_n["Nº Gerados"][i])
+                    padronizado = num / 10**len(str(num))
+                    df_n_p_list.append(padronizado)
+                st.session_state.df_n_p = pd.DataFrame(df_n_p_list, columns=["Nº Padronizados"])
+                st.dataframe(st.session_state.df_n_p)
+                with col1:
+                    st.download_button(label='Baixar Dados', data=pd.concat([st.session_state.df_n, st.session_state.df_n_p], axis=1).to_csv(index=False), file_name='mid_square.csv', mime='text/csv')
             else:
-                media_i_1 = len(lista_i_s[x]) / 2
-                media_i_2 = len(i_2_s) / 2
-                sub = media_i_2 - media_i_1
-                i_2_s = i_2_s[int(sub) : int(len(i_2_s) - sub)]
-                lista_i_s.append("".join(str(d) for d in i_2_s))
-        df_i = pd.DataFrame(lista_i_s, columns=["Nº Gerados"])
-        st.dataframe(df_i)
+                with col1:
+                 st.download_button(label='Baixar Dados', data=st.session_state.df_n.to_csv(index=False), file_name='mid_square.csv', mime='text/csv')
