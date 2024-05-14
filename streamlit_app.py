@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import def_modelagem_simulacao
 
+
 def pag_inicio():
     # URL do arquivo README.md no repositório do GitHub
     raw_url = (
@@ -19,12 +20,21 @@ def pag_inicio():
 
 
 def pag_modelagem_simulacao():
-    opcao = st.sidebar.radio("Problemas:", ("Andar do Bêbado", "Midsquare"),
-    format_func=lambda x: "Andar do Bêbado" if x == "Andar do Bêbado" else "Midsquare")
+    opcao = st.sidebar.radio(
+        "Problemas:",
+        ("Andar do Bêbado", "Midsquare", "Congruentes Lineares"),
+        format_func=lambda x: (
+            "Andar do Bêbado"
+            if x == "Andar do Bêbado"
+            else ("Midsquare" if x == "Midsquare" else "Congruentes Lineares")
+        ),
+    )
     if opcao == "Andar do Bêbado":
         def_modelagem_simulacao.bebado()
     elif opcao == "Midsquare":
         def_modelagem_simulacao.midsquare()
+    elif opcao == "Congruentes Lineares":
+        def_modelagem_simulacao.congruencia()
 
 
 def pagina_contato():
@@ -46,8 +56,13 @@ def social_links():
 
 def main():
     st.sidebar.image("pictures/logo_streamlit_gc.png", width=200)
-    opcoes = st.sidebar.radio("Selecione uma página", ("Sobre Mim", "Modelagem e Simulação"),
-    format_func=lambda x: "Sobre mim" if x == "Sobre Mim" else "Modelagem e Simulação")
+    opcoes = st.sidebar.radio(
+        "Selecione uma página",
+        ("Sobre Mim", "Modelagem e Simulação"),
+        format_func=lambda x: (
+            "Sobre mim" if x == "Sobre Mim" else "Modelagem e Simulação"
+        ),
+    )
     if opcoes == "Modelagem e Simulação":
         pag_modelagem_simulacao()
     elif opcoes == "Sobre Mim":
