@@ -184,3 +184,37 @@ def midsquare():
                         file_name="mid_square.csv",
                         mime="text/csv",
                     )
+
+
+def congruencia():
+    st.title("Método de Congruência Linear - LCG")
+    st.markdown(
+        "O método de congruência é uma técnica de geração de números pseudo-aleatórios. Neste método, o termo n "
+    )
+    st.warning("**Exemplo:**", icon="✏️")
+    st.write(
+        "x¹ = 124\
+             \n⮩ x¹ ** 2 = 1<u>**537**</u>6\
+             \nx² = 537\
+             \n⮩ x² ** 2 = 288369 ➟ 02<u>**883**</u>69 (correção)\
+             \nx³ = 883",
+        unsafe_allow_html=True,
+    )
+
+    st.write("_" * 3)
+
+    if "lista_n" not in st.session_state:
+        st.session_state.lista_n = []
+    q = st.number_input("Quantos número você quer gerar? ", 1, 999999, 1)
+    m = st.number_input("Insira o módulo 'm' (0 < m)", 1, 99999, 0)
+    a = st.number_input("Insira o multiplicador 'a' (0 < a < m)", 1, (m - 1), 1)
+    c = st.number_input("Insira o incrmento 'c' (0 <= c < m)", 0, (m - 1), 1)
+    st.session_state.lista_n.append(
+        st.number_input("Insira um número inicial de n dígitos:", 0, (m - 1), 0)
+    )
+    for i in range(q + 1):
+        st.session_state.lista_n.append((a * st.session_state.lista_n[i] + c) % m)
+
+    st.session_state.lista_n = pd.DataFrame(
+        st.session_state.lista_n, columns=["Nº Gerados"]
+    )
