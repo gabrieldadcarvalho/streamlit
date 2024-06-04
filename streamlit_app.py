@@ -47,7 +47,7 @@ def social_links():
 
     col1, col2 = st.sidebar.columns(2)
     with col1:
-        st.sidebar.link_button("GitHub", "https://github.com/gabrieldacarvalho")
+        st.sidebar.link_button("GitHub", "https://github.com/gabrieldadcarvalho")
     with col2:
         st.sidebar.link_button(
             "LinkedIn", "https://www.linkedin.com/in/gabriel-carvalho-ab38b7209/"
