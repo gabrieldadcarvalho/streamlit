@@ -322,6 +322,6 @@ def transformacao_inversa(n_padronizado):
     if tipo == "Exponencial":
         parametro = st.number_input("Qual valor de lambda? ", 1, 999999, 1)
         for i in range(len(n_padronizado)):
-            n_trans.append((-1 / parametro) * np.log(1 - n_padronizado[1]))
+            n_trans.append((-1 / parametro) * np.log(1 - n_padronizado[i]))
 
     return n_trans
