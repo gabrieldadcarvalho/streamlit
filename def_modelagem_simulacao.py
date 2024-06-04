@@ -221,18 +221,24 @@ def congruencia():
     )
     st.write("_" * 3)
     # Obter parâmetros do usuário
-    modulo = st.number_input("Insira o módulo (0 < m)", 1, 99999, 1)
+    modulo = st.number_input("Insira o módulo (0 < m)", 1, 99999, 1, format="%d")
     multiplicador = st.number_input(
-        "Insira o multiplicador (0 < a < m):", 0.00000001, (modulo - 0.00000001), 0
+        "Insira o multiplicador (0 < a < m):",
+        0.00000001,
+        float(modulo - 0.00000001),
+        0.00000001,
     )
     incremento = st.number_input(
-        "Insira o incremento (0 \u2264 c < m):", 0, (modulo - 0.00000001), 0
+        "Insira o incremento (0 \u2264 c < m):", 0.0, float(modulo - 0.00000001), 0.0
     )
     numero_inicial = st.number_input(
-        "Insira um número inicial (0 \u2264 x0 < m):", 0, (modulo - 0.00000001), 0
+        "Insira um número inicial (0 \u2264 x0 < m):",
+        0.0,
+        float(modulo - 0.00000001),
+        0.0,
     )
     quantidade_numeros = st.number_input(
-        "Quantos números você quer gerar? ", 1, 999999, 1
+        "Quantos números você quer gerar?", 1, 999999, 1, format="%d"
     )
     padronizar = st.radio("Você quer padronizar os números gerados?", ("Sim", "Não"))
     if st.button("Gerar Números"):
@@ -269,6 +275,7 @@ def congruencia():
                 numeros_padronizados = [
                     num / modulo for num in dataframe_numeros_gerados["Números Gerados"]
                 ]
+                transformacao_inversa(numeros_padronizados)
                 dataframe_numeros_padronizados = pd.DataFrame(
                     numeros_padronizados, columns=["Números Padronizados"]
                 )
@@ -295,3 +302,26 @@ def congruencia():
                         file_name="congruentes_lineares.csv",
                         mime="text/csv",
                     )
+
+
+def transformacao_inversa(n_padronizado):
+    dist = st.radio(
+        "Transformar os números em que tipo de distribuição:", ("Discreta", "Contínua")
+    )
+    if dist == "Continua":
+        tipo = st.radio(
+            "Você quer transformar os números em qual distribuição?",
+            ("Exponencial", "Normal", "Gama", "Lognormal"),
+        )
+    else:
+        tipo = st.radio(
+            "Você quer transformar os números em qual distribuição?",
+            ("Geométrica", "Binomial", "Hipergeométrica", "Poison"),
+        )
+    n_trans = []
+    if tipo == "Exponencial":
+        parametro = st.number_input("Qual valor de lambda? ", 1, 999999, 1)
+        for i in range(len(n_padronizado)):
+            n_trans.append((-1 / parametro) * np.log(1 - n_padronizado[1]))
+
+    return n_trans
