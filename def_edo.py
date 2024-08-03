@@ -46,6 +46,8 @@ st.write(f"Alpha selecionado: {alpha:.4f}")
 st.write(f"Beta selecionado: {beta:.4f}")
 st.write(f"P selecionado: {p:.4f}")
 st.write(f"Q selecionado: {q:.4f}")
+st.write(f"População inicial de corrupção (C0): {C0}")
+st.write(f"População inicial de fiscalização (F0): {F0}")
 
 
 # Equações diferenciais do modelo corrupção-fiscalização
