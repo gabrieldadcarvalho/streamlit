@@ -40,7 +40,7 @@ equilibrium_point = fsolve(equilibrium, initial_guess, args=(a, b, c, d))
 fig = go.Figure()
 
 # Trajetórias
-values = np.linspace(0.3, 0.9, 5)
+values = np.linspace(0.1, 0.6, 5)
 colors = ['rgba(255, 0, 0, 0.5)', 'rgba(255, 128, 0, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(128, 255, 0, 0.5)', 'rgba(0, 255, 255, 0.5)']  # Cores predefinidas para cada trajetória
 
 for v, color in zip(values, colors):
