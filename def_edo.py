@@ -58,8 +58,6 @@ M[M == 0] = 1.
 DX1 /= M
 DY1 /= M
 
-fig.add_trace(go.Scatter(x=X1.flatten(), y=Y1.flatten(), mode='markers', marker=dict(size=2, color='black'), name='Campo Vetorial'))
-
 
 # Adicionar ponto de equilíbrio
 fig.add_trace(go.Scatter(
