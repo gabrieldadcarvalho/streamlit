@@ -61,7 +61,7 @@ DY1 /= M
 # Ponto de Equilíbrio
 equilibrium_x = c / d
 equilibrium_y = a / b
-fig.add_trace(go.Scatter(x=[equilibrium_x], y=[equilibrium_y], mode='markers', name='Ponto de Equilíbrio', marker=dict(color='black', size=10)))
+fig.add_trace(go.Scatter(x=[equilibrium_x], y=[equilibrium_y], mode='markers', name='Ponto de Equilíbrio', marker=dict(color='red', size=10)))
 
 # Layout
 fig.update_layout(
