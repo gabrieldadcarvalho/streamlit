@@ -48,7 +48,7 @@ F0 = st.number_input(
 X0 = [C0, F0]
 
 C = np.zeros(N)
-F = np.zerps(N)
+F = np.zeros(N)
 C[0] = C0
 F[0] = F0
 
