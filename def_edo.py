@@ -2,13 +2,19 @@ import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
 from scipy.integrate import odeint
+from scipy.optimize import fsolve
 
-# Definição das funções diferenciais do modelo (substitua dX_dt pelo seu modelo específico)
+# Definição das funções diferenciais do modelo
 def dX_dt(X, t, a, b, c, d):
     x, y = X
     dxdt = a * x - b * x * y
     dydt = c * x * y - d * y
     return [dxdt, dydt]
+
+# Função para encontrar o ponto de equilíbrio
+def equilibrium(X, a, b, c, d):
+    x, y = X
+    return [a * x - b * x * y, c * x * y - d * y]
 
 # Interface Streamlit
 st.title("Trajetórias e Campos Vetoriais com o Modelo Lotka-Volterra")
@@ -25,6 +31,10 @@ nb_points = st.number_input("Número de pontos na grade", value=20, step=1)
 # Parâmetros do sistema
 t = np.linspace(t0, tn, 500)
 X_f1 = np.array([10, 5])  # Ponto final (ajuste conforme necessário)
+
+# Encontrar o ponto de equilíbrio
+initial_guess = [1, 1]  # Chute inicial para o ponto de equilíbrio
+equilibrium_point = fsolve(equilibrium, initial_guess, args=(a, b, c, d))
 
 # Gráficos de trajetórias e campos vetoriais
 fig = go.Figure()
@@ -50,20 +60,19 @@ DY1 /= M
 
 fig.add_trace(go.Scatter(x=X1.flatten(), y=Y1.flatten(), mode='markers', marker=dict(size=2, color='black'), name='Campo Vetorial'))
 
-# Adicionando campos vetoriais manualmente
-for i in range(0, len(X1), max(1, len(X1)//10)):  # Subamostrando para evitar sobrecarga gráfica
-    for j in range(0, len(Y1), max(1, len(Y1)//10)):
-        fig.add_trace(go.Scatter(
-            x=[X1[i, j], X1[i, j] + DX1[i, j]],
-            y=[Y1[i, j], Y1[i, j] + DY1[i, j]],
-            mode='lines',
-            line=dict(color='blue', width=1),
-            showlegend=False
-        ))
+
+# Adicionar ponto de equilíbrio
+fig.add_trace(go.Scatter(
+    x=[equilibrium_point[0]],
+    y=[equilibrium_point[1]],
+    mode='markers',
+    marker=dict(size=12, color='red', symbol='x'),
+    name='Ponto de Equilíbrio'
+))
 
 # Layout
 fig.update_layout(
-    title='Trajetórias e Campos Vetoriais',
+    title='Trajetórias e Campos Vetoriais com Ponto de Equilíbrio',
     xaxis_title='Número de Coelhos',
     yaxis_title='Número de Raposas',
     legend_title='Legenda',
