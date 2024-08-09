@@ -62,7 +62,7 @@ def lotka_volterra_corruption(X, t, alpha, beta, p, q):
 t = np.linspace(0, 200, 1000)
 
 # Resolver as equações diferenciais
-sol = odeint(lotka_volterra_corruption, X0, t, args=(alpha, beta, p, q))
+sol = odeint(lotka_volterra_corruption, X0, args=(alpha, beta, p, q))
 
 # Criar o gráfico com Plotly
 fig = go.Figure()
