@@ -34,13 +34,13 @@ def plot_lotka_volterra(t, x, y, a, b, c, d):
     """
     fig = go.Figure()
 
-    # Gráfico de Presa e Predador em função do tempo
-    fig.add_trace(go.Scatter(x=t, y=x, mode='lines', name='Presa', line=dict(color='red')))
-    fig.add_trace(go.Scatter(x=t, y=y, mode='lines', name='Predador', line=dict(color='blue')))
-    
-    # Gráfico de Predador vs Presa
+    # Gráfico de População de Presas vs Predadores
     fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Trajetória', line=dict(color='black')))
-    fig.add_trace(go.Scatter(x=[c/d], y=[a/b], mode='markers', name='Ponto de Equilíbrio', marker=dict(color='black', size=10)))
+    
+    # Ponto de Equilíbrio
+    equilibrium_x = c / d
+    equilibrium_y = a / b
+    fig.add_trace(go.Scatter(x=[equilibrium_x], y=[equilibrium_y], mode='markers', name='Ponto de Equilíbrio', marker=dict(color='black', size=10)))
 
     # Adicionar quiver (campo vetorial)
     u = np.linspace(0, max(x), 20)
@@ -52,9 +52,9 @@ def plot_lotka_volterra(t, x, y, a, b, c, d):
     fig.add_trace(go.Scatter(x=U.flatten(), y=V.flatten(), mode='markers', marker=dict(size=5, color='grey'), name='Quiver'))
 
     fig.update_layout(
-        title='Modelo Lotka-Volterra',
-        xaxis_title='Tempo / População de Presa',
-        yaxis_title='População de Predador',
+        title='Modelo Lotka-Volterra: População de Presas vs Predadores',
+        xaxis_title='População de Presas',
+        yaxis_title='População de Predadores',
         legend_title='Legenda',
         showlegend=True
     )
@@ -77,6 +77,21 @@ y0 = st.number_input("População inicial de Predador", value=5)
 # Cálculo do modelo
 t, x, y = lotka_volterra(t0, tn, x0, y0, a, b, c, d)
 
-# Plotar os resultados
+# Plotar o gráfico de Presa vs Predador
 fig = plot_lotka_volterra(t, x, y, a, b, c, d)
 st.plotly_chart(fig)
+
+# Gráfico da evolução temporal das populações
+fig_time = go.Figure()
+fig_time.add_trace(go.Scatter(x=t, y=x, mode='lines', name='Presa', line=dict(color='red')))
+fig_time.add_trace(go.Scatter(x=t, y=y, mode='lines', name='Predador', line=dict(color='blue')))
+
+fig_time.update_layout(
+    title='Evolução Temporal das Populações',
+    xaxis_title='Tempo',
+    yaxis_title='População',
+    legend_title='Legenda',
+    showlegend=True
+)
+
+st.plotly_chart(fig_time)
