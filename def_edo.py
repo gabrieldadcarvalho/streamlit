@@ -1,80 +1,82 @@
 import numpy as np
-from scipy.integrate import odeint
 import streamlit as st
 import plotly.graph_objects as go
 
-# Título da aplicação
-st.title("Modelo Corrupção-Fiscalização (Lotka-Volterra)")
+def lotka_volterra(t0, tn, x0, y0, a, b, c, d):
+    """ 
+    Calcula e retorna as soluções do modelo Lotka-Volterra
+    """
+    # Definir o intervalo de tempo e passo
+    n_points = 500 * int(tn)
+    t = np.linspace(t0, tn, n_points + 1)
+    h = (tn - t0) / n_points
+
+    # Inicializar as populações
+    x = np.zeros(n_points + 1)
+    y = np.zeros(n_points + 1)
+    x[0] = x0
+    y[0] = y0
+
+    # Funções diferenciais
+    f1 = lambda t, x, y: a * x - b * y * x
+    f2 = lambda t, x, y: -c * y + d * y * x
+
+    # Resolver as equações diferenciais
+    for i in range(1, n_points + 1):
+        x[i] = x[i-1] + h * f1(t[i-1], x[i-1], y[i-1])
+        y[i] = y[i-1] + h * f2(t[i-1], x[i-1], y[i-1])
+
+    return t, x, y
+
+def plot_lotka_volterra(t, x, y, a, b, c, d):
+    """ 
+    Cria e retorna o gráfico interativo do modelo Lotka-Volterra usando Plotly
+    """
+    fig = go.Figure()
+
+    # Gráfico de Presa e Predador em função do tempo
+    fig.add_trace(go.Scatter(x=t, y=x, mode='lines', name='Presa', line=dict(color='red')))
+    fig.add_trace(go.Scatter(x=t, y=y, mode='lines', name='Predador', line=dict(color='blue')))
+    
+    # Gráfico de Predador vs Presa
+    fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Trajetória', line=dict(color='black')))
+    fig.add_trace(go.Scatter(x=[c/d], y=[a/b], mode='markers', name='Ponto de Equilíbrio', marker=dict(color='black', size=10)))
+
+    # Adicionar quiver (campo vetorial)
+    u = np.linspace(0, max(x), 20)
+    v = np.linspace(0, max(y), 20)
+    U, V = np.meshgrid(u, v)
+    Ux = U * (1 - (b/a) * V) / np.sqrt((U * (1 - (b/a) * V))**2 + (V * ((d/c) * U - 1))**2)
+    Vy = V * ((d/c) * U - 1) / np.sqrt((U * (1 - (b/a) * V))**2 + (V * ((d/c) * U - 1))**2)
+    
+    fig.add_trace(go.Scatter(x=U.flatten(), y=V.flatten(), mode='markers', marker=dict(size=5, color='grey'), name='Quiver'))
+
+    fig.update_layout(
+        title='Modelo Lotka-Volterra',
+        xaxis_title='Tempo / População de Presa',
+        yaxis_title='População de Predador',
+        legend_title='Legenda',
+        showlegend=True
+    )
+
+    return fig
+
+# Interface Streamlit
+st.title("Modelo Lotka-Volterra")
 
 # Entrada dos parâmetros do modelo
-alpha_str = st.text_input("Alpha", value="1.0000")
-try:
-    alpha = float(alpha_str)
-except ValueError:
-    alpha = 1.0  # valor padrão ou algum tratamento de erro
+a = st.number_input("a", value=1.0)
+b = st.number_input("b", value=1.0)
+c = st.number_input("c", value=1.0)
+d = st.number_input("d", value=1.0)
+t0 = st.number_input("Tempo inicial", value=0.0)
+tn = st.number_input("Tempo final", value=30.0)
+x0 = st.number_input("População inicial de Presa", value=10)
+y0 = st.number_input("População inicial de Predador", value=5)
 
-beta_str = st.text_input("Beta", value="1.0000")
-try:
-    beta = float(beta_str)
-except ValueError:
-    beta = 1.0  # valor padrão ou algum tratamento de erro
+# Cálculo do modelo
+t, x, y = lotka_volterra(t0, tn, x0, y0, a, b, c, d)
 
-p_str = st.text_input("p", value="1.0000")
-try:
-    p = float(p_str)
-except ValueError:
-    p = 1.0  # valor padrão ou algum tratamento de erro
-
-q_str = st.text_input("q", value="1.0000")
-try:
-    q = float(q_str)
-except ValueError:
-    q = 1.0  # valor padrão ou algum tratamento de erro
-
-T = st.number_input("Tempo", min_value=1, max_value=999999, value=30)
-dt = 0.01
-N = int(T/dt)
-
-# Condições iniciais
-C0 = st.number_input("População inicial de corrupção (C0)", min_value=1, max_value=999999, value=10)
-F0 = st.number_input("População inicial de fiscalização (F0)", min_value=1, max_value=999999, value=10)
-X0 = [C0, F0]
-
-# Exibindo os valores com a precisão desejada
-st.write(f"Alpha selecionado: {alpha:.4f}")
-st.write(f"Beta selecionado: {beta:.4f}")
-st.write(f"P selecionado: {p:.4f}")
-st.write(f"Q selecionado: {q:.4f}")
-st.write(f"População inicial de corrupção (C0): {C0}")
-st.write(f"População inicial de fiscalização (F0): {F0}")
-
-def derivative(X, t, alpha, beta, p, q):
-    C, F = X
-    dotx = C * (alpha - beta * C)
-    doty = F * (-p + q * F)
-    return np.array([dotx, doty])
-
-# Definindo o tempo
-Nt = 1000
-tmax = T
-t = np.linspace(0., tmax, Nt)
-
-# Resolvendo o sistema
-res = odeint(derivative, X0, t, args=(alpha, beta, p, q))
-x, y = res.T
-
-# Criando o gráfico usando Plotly
-fig = go.Figure()
-
-# Adicionando curvas para diferentes condições iniciais
-fig.add_trace(go.Scatter(x=t, y=x, mode='lines', name='C'))
-fig.add_trace(go.Scatter(x=t, y=y, mode='lines', name='F'))
-
-fig.update_layout(
-    title="População de Corrupção vs Fiscalização",
-    xaxis_title="População de Corrupção",
-    yaxis_title="População de Fiscalização",
-    legend_title="População Inicial"
-)
-
+# Plotar os resultados
+fig = plot_lotka_volterra(t, x, y, a, b, c, d)
 st.plotly_chart(fig)
