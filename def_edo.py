@@ -1,107 +1,64 @@
 import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
+from scipy.integrate import odeint
 
-def lotka_volterra(t0, tn, x0, y0, a, b, c, d):
-    """ 
-    Calcula e retorna as soluções do modelo Lotka-Volterra
-    """
-    # Definir o intervalo de tempo e passo
-    n_points = 500 * int(tn)
-    t = np.linspace(t0, tn, n_points + 1)
-    h = (tn - t0) / n_points
-
-    # Inicializar as populações
-    x = np.zeros(n_points + 1)
-    y = np.zeros(n_points + 1)
-    x[0] = x0
-    y[0] = y0
-
-    # Funções diferenciais
-    f1 = lambda t, x, y: a * x - b * y * x
-    f2 = lambda t, x, y: -c * y + d * y * x
-
-    # Resolver as equações diferenciais
-    for i in range(1, n_points + 1):
-        x[i] = x[i-1] + h * f1(t[i-1], x[i-1], y[i-1])
-        y[i] = y[i-1] + h * f2(t[i-1], x[i-1], y[i-1])
-
-    return t, x, y
-
-def plot_lotka_volterra(x, y, a, b, c, d):
-    """ 
-    Cria e retorna o gráfico interativo do modelo Lotka-Volterra usando Plotly
-    """
-    fig = go.Figure()
-
-    # Gráfico de População de Presas vs Predadores
-    fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Trajetória', line=dict(color='black')))
-    
-    # Ponto de Equilíbrio
-    equilibrium_x = c / d
-    equilibrium_y = a / b
-    fig.add_trace(go.Scatter(x=[equilibrium_x], y=[equilibrium_y], mode='markers', name='Ponto de Equilíbrio', marker=dict(color='black', size=10)))
-
-    # Adicionar quiver (campo vetorial)
-    u = np.linspace(0, max(x), 20)
-    v = np.linspace(0, max(y), 20)
-    U, V = np.meshgrid(u, v)
-    Ux = U * (1 - (b/a) * V) / np.sqrt((U * (1 - (b/a) * V))**2 + (V * ((d/c) * U - 1))**2)
-    Vy = V * ((d/c) * U - 1) / np.sqrt((U * (1 - (b/a) * V))**2 + (V * ((d/c) * U - 1))**2)
-    
-    fig.add_trace(go.Scatter(x=U.flatten(), y=V.flatten(), mode='markers', marker=dict(size=5, color='grey'), name='Quiver'))
-
-    fig.update_layout(
-        title='Modelo Lotka-Volterra: População de Presas vs Predadores',
-        xaxis_title='População de Presas',
-        yaxis_title='População de Predadores',
-        legend_title='Legenda',
-        showlegend=True
-    )
-
-    return fig
+# Definição das funções diferenciais do modelo (substitua dX_dt pelo seu modelo específico)
+def dX_dt(X, t):
+    # Exemplo de sistema Lotka-Volterra: [x, y] com parâmetros a, b, c, d
+    x, y = X
+    a, b, c, d = 1.0, 0.1, 0.1, 1.0  # Defina os parâmetros aqui
+    dxdt = a * x - b * x * y
+    dydt = c * x * y - d * y
+    return [dxdt, dydt]
 
 # Interface Streamlit
-st.title("Modelo Lotka-Volterra")
+st.title("Trajetórias e Campos Vetoriais com o Modelo Lotka-Volterra")
 
-# Entrada dos parâmetros do modelo com até 5 casas decimais
+# Definir parâmetros
 a = st.number_input("a", value=1.0, format="%.5f")
-b = st.number_input("b", value=1.0, format="%.5f")
-c = st.number_input("c", value=1.0, format="%.5f")
+b = st.number_input("b", value=0.1, format="%.5f")
+c = st.number_input("c", value=0.1, format="%.5f")
 d = st.number_input("d", value=1.0, format="%.5f")
 t0 = st.number_input("Tempo inicial", value=0.0, format="%.5f")
 tn = st.number_input("Tempo final", value=30.0, format="%.5f")
-x0 = st.number_input("População inicial de Presa", value=10.0, format="%.5f")
-y0 = st.number_input("População inicial de Predador", value=5.0, format="%.5f")
+nb_points = st.number_input("Número de pontos na grade", value=20, step=1)
 
-# Exibindo os valores com a precisão desejada
-st.write(f"Parâmetro a: {a:.5f}")
-st.write(f"Parâmetro b: {b:.5f}")
-st.write(f"Parâmetro c: {c:.5f}")
-st.write(f"Parâmetro d: {d:.5f}")
-st.write(f"Tempo inicial: {t0:.5f}")
-st.write(f"Tempo final: {tn:.5f}")
-st.write(f"População inicial de Presa (x0): {x0:.5f}")
-st.write(f"População inicial de Predador (y0): {y0:.5f}")
+# Parâmetros do sistema
+t = np.linspace(t0, tn, 500)
+X_f1 = np.array([10, 5])  # Ponto final (ajuste conforme necessário)
 
-# Cálculo do modelo
-t, x, y = lotka_volterra(t0, tn, x0, y0, a, b, c, d)
+# Gráficos de trajetórias e campos vetoriais
+fig = go.Figure()
 
-# Plotar o gráfico de Presa vs Predador
-fig = plot_lotka_volterra(x, y, a, b, c, d)
-st.plotly_chart(fig)
+# Trajetórias
+values = np.linspace(0.3, 0.9, 5)
+colors = plt.cm.autumn_r(np.linspace(0.3, 1., len(values)))  # Cores para cada trajetória
 
-# Gráfico da evolução temporal das populações
-fig_time = go.Figure()
-fig_time.add_trace(go.Scatter(x=t, y=x, mode='lines', name='Presa', line=dict(color='red')))
-fig_time.add_trace(go.Scatter(x=t, y=y, mode='lines', name='Predador', line=dict(color='blue')))
+for v, color in zip(values, colors):
+    X0 = v * X_f1
+    X = odeint(dX_dt, X0, t)
+    fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode='lines', line=dict(width=3.5*v, color=go.colors.rgb_to_rgb(color)), name=f'X0=({X0[0]:.1f}, {X0[1]:.1f})'))
 
-fig_time.update_layout(
-    title='Evolução Temporal das Populações',
-    xaxis_title='Tempo',
-    yaxis_title='População',
+# Grade de pontos e campos vetoriais
+x = np.linspace(0, X_f1[0] * 1.2, nb_points)
+y = np.linspace(0, X_f1[1] * 1.2, nb_points)
+X1, Y1 = np.meshgrid(x, y)
+DX1, DY1 = dX_dt([X1, Y1])
+M = np.hypot(DX1, DY1)
+M[M == 0] = 1.
+DX1 /= M
+DY1 /= M
+
+fig.add_trace(go.Quiver(x=X1.flatten(), y=Y1.flatten(), u=DX1.flatten(), v=DY1.flatten(), scale=0.1, color=M.flatten(), colorscale='Jet', showscale=True, name='Campo Vetorial'))
+
+# Layout
+fig.update_layout(
+    title='Trajetórias e Campos Vetoriais',
+    xaxis_title='Número de Coelhos',
+    yaxis_title='Número de Raposas',
     legend_title='Legenda',
     showlegend=True
 )
 
-st.plotly_chart(fig_time)
+st.plotly_chart(fig)
