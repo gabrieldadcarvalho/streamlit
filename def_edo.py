@@ -5,7 +5,6 @@ from scipy.integrate import odeint
 
 # Definição das funções diferenciais do modelo (substitua dX_dt pelo seu modelo específico)
 def dX_dt(X, t):
-    # Exemplo de sistema Lotka-Volterra: [x, y] com parâmetros a, b, c, d
     x, y = X
     a, b, c, d = 1.0, 0.1, 0.1, 1.0  # Defina os parâmetros aqui
     dxdt = a * x - b * x * y
@@ -33,12 +32,12 @@ fig = go.Figure()
 
 # Trajetórias
 values = np.linspace(0.3, 0.9, 5)
-colors = plt.cm.autumn_r(np.linspace(0.3, 1., len(values)))  # Cores para cada trajetória
+colors = [go.colors.rgb_to_rgb(f"rgba({int(c[0]*255)}, {int(c[1]*255)}, {int(c[2]*255)}, 1)") for c in plt.cm.autumn(np.linspace(0.3, 1., len(values)))[:, :3]]  # Cores para cada trajetória
 
 for v, color in zip(values, colors):
     X0 = v * X_f1
     X = odeint(dX_dt, X0, t)
-    fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode='lines', line=dict(width=3.5*v, color=go.colors.rgb_to_rgb(color)), name=f'X0=({X0[0]:.1f}, {X0[1]:.1f})'))
+    fig.add_trace(go.Scatter(x=X[:, 0], y=X[:, 1], mode='lines', line=dict(width=3.5*v, color=color), name=f'X0=({X0[0]:.1f}, {X0[1]:.1f})'))
 
 # Grade de pontos e campos vetoriais
 x = np.linspace(0, X_f1[0] * 1.2, nb_points)
