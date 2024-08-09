@@ -61,7 +61,7 @@ st.write(f"População inicial de corrupção (C0): {C0}")
 st.write(f"População inicial de fiscalização (F0): {F0}")
 
 for i in range(1, N):
-    dC = alpha * C[i - 1] - beta] * C[i - 1] * F[i - 1]
+    dC = alpha * C[i - 1] - beta * C[i - 1] * F[i - 1]
     dF = p * F[i - 1] + q * C[i - 1] * F[i - 1]
     C[i] = C[i - 1] + dC * dt
     F[i] = F[i - 1] + dF * dt
