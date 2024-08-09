@@ -2,7 +2,7 @@ import numpy as np
 from scipy.integrate import odeint
 import streamlit as st
 import plotly.graph_objects as go
-import ployly.io as pio
+import plotly.io as pio
 
 # Título da aplicação
 st.title("Modelo Corrupção-Fiscalização (Lotka-Volterra)")
