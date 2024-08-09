@@ -97,7 +97,7 @@ fig.update_layout(
 )
 
 # Exibir o gráfico
-pio.show(fig)
+st.plotly_chart(fig)
 
 
 """
