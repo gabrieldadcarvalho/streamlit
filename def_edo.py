@@ -60,76 +60,28 @@ st.write(f"Q selecionado: {q:.4f}")
 st.write(f"População inicial de corrupção (C0): {C0}")
 st.write(f"População inicial de fiscalização (F0): {F0}")
 
-for i in range(1, N):
-    dC = alpha * C[i - 1] - beta * C[i - 1] * F[i - 1]
-    dF = p * F[i - 1] + q * C[i - 1] * F[i - 1]
-    C[i] = C[i - 1] + dC * dt
-    F[i] = F[i - 1] + dF * dt
 
-
-# Criação do gráfico com Plotly
-fig = go.Figure()
-
-# Adicionando a linha para C (Corruptos)
-fig.add_trace(go.Scatter(
-    x=np.linspace(0, T, N),
-    y=C,
-    mode='lines',
-    name='Corruptos (C)',
-    line=dict(color='blue')
-))
-
-# Adicionando a linha para F (Fiscalização)
-fig.add_trace(go.Scatter(
-    x=np.linspace(0, T, N),
-    y=F,
-    mode='lines',
-    name='Fiscalização (F)',
-    line=dict(color='red')
-))
-
-# Layout do gráfico
-fig.update_layout(
-    title='Modelo Presa-Predador (Lotka-Volterra)',
-    xaxis_title='Tempo',
-    yaxis_title='População',
-    showlegend=True
-)
-
-# Exibir o gráfico
-st.plotly_chart(fig)
-
-
-"""
-# Equações diferenciais do modelo corrupção-fiscalização
-def lotka_volterra_corruption(X, t, alpha, beta, p, q):
+def derivative(X, t, alpha, beta, p, q):
     C, F = X
-    dCdt = C * (alpha - beta * F)
-    dFdt = F * (-p + q * C)
-    return [dCdt, dFdt]
+    dotx = C * (alpha - beta * C)
+    doty = F * (-p + q * F)
+    return np.array([dotx, doty])
 
 
-# Intervalo de tempo para a simulação
-t = np.linspace(0, 200, 1000)
+Nt = 1000
+tmax = 30.
+t = np.linspace(0.,tmax, Nt)
+res = integrate.odeint(derivative, X0, t, args = (alpha, beta, p, q))
+x, y = res.T
 
-# Resolver as equações diferenciais
-sol = odeint(lotka_volterra_corruption, X0, args=(alpha, beta, p, q))
-
-
-# Criar o gráfico com Plotly
-fig = go.Figure()
-
-fig.add_trace(go.Scatter(x=t, y=sol[:, 0], mode="lines", name="Corrupção (C)"))
-fig.add_trace(go.Scatter(x=t, y=sol[:, 1], mode="lines", name="Fiscalização (F)"))
-
-fig.update_layout(
-    title="Modelo Corrupção-Fiscalização (Lotka-Volterra)",
-    xaxis_title="Tempo",
-    yaxis_title="Níveis",
-    legend_title="Variáveis",
-    template="plotly_white",
-)
-
-# Exibir o gráfico no Streamlit
-st.plotly_chart(fig)
-"""
+plt.figure()
+IC = np.linspace(1.0, 6.0, 21) # initial conditions for deer population (prey)
+for deer in IC:
+    X0 = [deer, 1.0]
+    Xs = integrate.odeint(derivative, X0, t, args = (alpha, beta, p, q))
+    plt.plot(Xs[:,0], Xs[:,1], "-", label = "$x_0 =$"+str(X0[0]))
+plt.xlabel("Deer")
+plt.ylabel("Wolves")
+plt.legend()
+plt.title("Deer vs Wolves");
+st.plotly_chart(plt.show()
