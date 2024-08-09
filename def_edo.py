@@ -28,7 +28,7 @@ def lotka_volterra(t0, tn, x0, y0, a, b, c, d):
 
     return t, x, y
 
-def plot_lotka_volterra(t, x, y, a, b, c, d):
+def plot_lotka_volterra(x, y, a, b, c, d):
     """ 
     Cria e retorna o gráfico interativo do modelo Lotka-Volterra usando Plotly
     """
@@ -64,21 +64,31 @@ def plot_lotka_volterra(t, x, y, a, b, c, d):
 # Interface Streamlit
 st.title("Modelo Lotka-Volterra")
 
-# Entrada dos parâmetros do modelo
-a = st.number_input("a", value=1.0)
-b = st.number_input("b", value=1.0)
-c = st.number_input("c", value=1.0)
-d = st.number_input("d", value=1.0)
-t0 = st.number_input("Tempo inicial", value=0.0)
-tn = st.number_input("Tempo final", value=30.0)
-x0 = st.number_input("População inicial de Presa", value=10)
-y0 = st.number_input("População inicial de Predador", value=5)
+# Entrada dos parâmetros do modelo com até 5 casas decimais
+a = st.number_input("a", value=1.0, format="%.5f")
+b = st.number_input("b", value=1.0, format="%.5f")
+c = st.number_input("c", value=1.0, format="%.5f")
+d = st.number_input("d", value=1.0, format="%.5f")
+t0 = st.number_input("Tempo inicial", value=0.0, format="%.5f")
+tn = st.number_input("Tempo final", value=30.0, format="%.5f")
+x0 = st.number_input("População inicial de Presa", value=10.0, format="%.5f")
+y0 = st.number_input("População inicial de Predador", value=5.0, format="%.5f")
+
+# Exibindo os valores com a precisão desejada
+st.write(f"Parâmetro a: {a:.5f}")
+st.write(f"Parâmetro b: {b:.5f}")
+st.write(f"Parâmetro c: {c:.5f}")
+st.write(f"Parâmetro d: {d:.5f}")
+st.write(f"Tempo inicial: {t0:.5f}")
+st.write(f"Tempo final: {tn:.5f}")
+st.write(f"População inicial de Presa (x0): {x0:.5f}")
+st.write(f"População inicial de Predador (y0): {y0:.5f}")
 
 # Cálculo do modelo
 t, x, y = lotka_volterra(t0, tn, x0, y0, a, b, c, d)
 
 # Plotar o gráfico de Presa vs Predador
-fig = plot_lotka_volterra(t, x, y, a, b, c, d)
+fig = plot_lotka_volterra(x, y, a, b, c, d)
 st.plotly_chart(fig)
 
 # Gráfico da evolução temporal das populações
