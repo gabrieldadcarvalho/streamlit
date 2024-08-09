@@ -84,4 +84,4 @@ plt.xlabel("Deer")
 plt.ylabel("Wolves")
 plt.legend()
 plt.title("Deer vs Wolves");
-st.plotly_chart(plt.show()
+st.plotly_chart(plt.show())
