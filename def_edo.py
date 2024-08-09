@@ -58,11 +58,14 @@ M[M == 0] = 1.
 DX1 /= M
 DY1 /= M
 
+# Ponto de Equilíbrio
+equilibrium_x = c / d
+equilibrium_y = a / b
 
 # Adicionar ponto de equilíbrio
 fig.add_trace(go.Scatter(
-    x=[equilibrium_point[0]],
-    y=[equilibrium_point[1]],
+    x=equilibrium_x,
+    y=equilibrium_y,
     mode='markers',
     marker=dict(size=12, color='red', symbol='x'),
     name='Ponto de Equilíbrio'
