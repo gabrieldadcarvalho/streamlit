@@ -67,11 +67,8 @@ x, y = res.T
 fig = go.Figure()
 
 # Adicionando curvas para diferentes condições iniciais
-IC = np.linspace(1.0, 6.0, 21)  # Condições iniciais para a população de corrupção
-for deer in IC:
-    X0 = [deer, 1.0]
-    Xs = odeint(derivative, X0, t, args=(alpha, beta, p, q))
-    fig.add_trace(go.Scatter(x=Xs[:,0], y=Xs[:,1], mode='lines', name=f"C0 = {X0[0]}"))
+fig.add_trace(go.Scatter(x=t, y=x, mode='lines', name='C'))
+fig.add_trace(go.Scatter(x=t, y=y, mode='lines', name='F'))
 
 fig.update_layout(
     title="População de Corrupção vs Fiscalização",
