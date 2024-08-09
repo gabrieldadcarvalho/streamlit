@@ -2,7 +2,6 @@ import numpy as np
 from scipy.integrate import odeint
 import streamlit as st
 import plotly.graph_objects as go
-import plotly.io as pio
 
 # Título da aplicação
 st.title("Modelo Corrupção-Fiscalização (Lotka-Volterra)")
@@ -14,9 +13,9 @@ try:
 except ValueError:
     alpha = 1.0  # valor padrão ou algum tratamento de erro
 
-Beta_str = st.text_input("Beta", value="1.0000")
+beta_str = st.text_input("Beta", value="1.0000")
 try:
-    beta = float(Beta_str)
+    beta = float(beta_str)
 except ValueError:
     beta = 1.0  # valor padrão ou algum tratamento de erro
 
@@ -32,25 +31,14 @@ try:
 except ValueError:
     q = 1.0  # valor padrão ou algum tratamento de erro
 
-T = st.number_input(
-    "Tempo", 1, 999999, 1
-) 
+T = st.number_input("Tempo", min_value=1, max_value=999999, value=30)
 dt = 0.01
 N = int(T/dt)
 
 # Condições iniciais
-C0 = st.number_input(
-    "População inicial de corrupção (C0)", 1, 999999, 1
-)  # População inicial de corrupção
-F0 = st.number_input(
-    "População inicial de fiscalização (F0)", 1, 999999, 1
-)  # População inicial de fiscalização
+C0 = st.number_input("População inicial de corrupção (C0)", min_value=1, max_value=999999, value=10)
+F0 = st.number_input("População inicial de fiscalização (F0)", min_value=1, max_value=999999, value=10)
 X0 = [C0, F0]
-
-C = np.zeros(N)
-F = np.zeros(N)
-C[0] = C0
-F[0] = F0
 
 # Exibindo os valores com a precisão desejada
 st.write(f"Alpha selecionado: {alpha:.4f}")
@@ -60,28 +48,36 @@ st.write(f"Q selecionado: {q:.4f}")
 st.write(f"População inicial de corrupção (C0): {C0}")
 st.write(f"População inicial de fiscalização (F0): {F0}")
 
-
 def derivative(X, t, alpha, beta, p, q):
     C, F = X
     dotx = C * (alpha - beta * C)
     doty = F * (-p + q * F)
     return np.array([dotx, doty])
 
-
+# Definindo o tempo
 Nt = 1000
-tmax = 30.
-t = np.linspace(0.,tmax, Nt)
-res = integrate.odeint(derivative, X0, t, args = (alpha, beta, p, q))
+tmax = T
+t = np.linspace(0., tmax, Nt)
+
+# Resolvendo o sistema
+res = odeint(derivative, X0, t, args=(alpha, beta, p, q))
 x, y = res.T
 
-plt.figure()
-IC = np.linspace(1.0, 6.0, 21) # initial conditions for deer population (prey)
+# Criando o gráfico usando Plotly
+fig = go.Figure()
+
+# Adicionando curvas para diferentes condições iniciais
+IC = np.linspace(1.0, 6.0, 21)  # Condições iniciais para a população de corrupção
 for deer in IC:
     X0 = [deer, 1.0]
-    Xs = integrate.odeint(derivative, X0, t, args = (alpha, beta, p, q))
-    plt.plot(Xs[:,0], Xs[:,1], "-", label = "$x_0 =$"+str(X0[0]))
-plt.xlabel("Deer")
-plt.ylabel("Wolves")
-plt.legend()
-plt.title("Deer vs Wolves");
-st.plotly_chart(plt.show())
+    Xs = odeint(derivative, X0, t, args=(alpha, beta, p, q))
+    fig.add_trace(go.Scatter(x=Xs[:,0], y=Xs[:,1], mode='lines', name=f"C0 = {X0[0]}"))
+
+fig.update_layout(
+    title="População de Corrupção vs Fiscalização",
+    xaxis_title="População de Corrupção",
+    yaxis_title="População de Fiscalização",
+    legend_title="População Inicial"
+)
+
+st.plotly_chart(fig)
