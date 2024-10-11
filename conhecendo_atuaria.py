@@ -60,15 +60,50 @@ def roll_dice():
     with col2:
         st.markdown(
             "A simulação é uma ferramenta essencial na Ciência Atuarial, permitindo a análise de diversos cenários que podem ocorrer em um contexto específico. "
-            "Esta página oferece uma maneira simples de simular múltiplos lançamentos de um dado justo de **6** lados, possibilitando a observação de padrões estatísticos."
+            "Esta página oferece uma maneira simples de simular múltiplos lançamentos de dados justos de **6** lados, possibilitando a observação de padrões estatísticos. "
+            "Você pode escolher simular um ou dois dados e observar as métricas com base nas somas."
+        )
+        st.markdown(
+            "### CÓDIGO UTILIZADO:\n"
+            "```python\n"
+            "import numpy as np\n"
+            "import pandas as pd\n"
+            "\n"
+            "num_rolls = st.number_input('Quantos lançamentos deseja simular?', 1, 100000)\n"
+            "roll = np.random.randint(1, 7, size=int(num_rolls))\n"
+            "mean = np.mean(roll)\n"
+            "var = np.var(roll)\n"
+            "dp = np.std(roll)\n"
+            "\n"
+            "df_metrics = pd.DataFrame(\n"
+            "    {\n"
+            "        'Valor': [mean, var, dp]\n"
+            "    },\n"
+            "    index=['Média', 'Variância', 'Desvio Padrão']\n"
+            ")\n"
+            "\n"
+            "st.subheader(f'Resultados da Simulação com {num_rolls} Lançamentos:')\n"
+            "st.dataframe(df_metrics)\n"
+            "```\n"
         )
 
+    num_dices = st.selectbox("Quantos dados deseja simular?", [1, 2])
     num_rolls = st.number_input("Quantos lançamentos deseja simular?", 1, 100000)
+
     if st.button("Lançar"):
-        roll = np.random.randint(1, 7, size=int(num_rolls))
-        mean = np.mean(roll)
-        var = np.var(roll)
-        dp = np.std(roll)
+        # Simulação de lançamentos
+        roll1 = np.random.randint(1, 7, size=int(num_rolls))
+
+        if num_dices == 2:
+            roll2 = np.random.randint(1, 7, size=int(num_rolls))
+            roll_sum = roll1 + roll2
+        else:
+            roll_sum = roll1
+
+        # Cálculo das métricas
+        mean = np.mean(roll_sum)
+        var = np.var(roll_sum)
+        dp = np.std(roll_sum)
 
         # Criando um DataFrame com as métricas como índice
         df_metrics = pd.DataFrame(
@@ -78,32 +113,32 @@ def roll_dice():
         st.subheader(f"Resultados da Simulação com {num_rolls} Lançamentos:")
         st.dataframe(df_metrics)
 
-        # Contando a frequência dos valores
-        value_counts = pd.Series(roll).value_counts().sort_index()
+        # Contando a frequência das somas dos valores
+        value_counts = pd.Series(roll_sum).value_counts().sort_index()
 
-        # Criando um DataFrame com o lado do dado como índice
+        # Criando um DataFrame com a soma dos dados como índice
         df_counts = pd.DataFrame(
             {"Frequência": value_counts.values}, index=value_counts.index
         )
 
-        df_counts.index.name = "Lado do Dado"
+        df_counts.index.name = "Soma dos Dados"
 
-        st.subheader("Frequência de Cada Lado do Dado:")
+        st.subheader("Frequência das Somas dos Dados:")
         st.dataframe(df_counts)
 
         # Criando o gráfico dos lançamentos
-        st.subheader("Gráfico dos Lançamentos:")
+        st.subheader("Gráfico das Somas dos Lançamentos:")
         fig, ax = plt.subplots()
         sns.barplot(
             x=df_counts.index,
             y="Frequência",
             data=df_counts.reset_index(),
-            color="green",
+            color="blue",
             ax=ax,
         )
-        ax.set_xlabel("Lado do Dado")
+        ax.set_xlabel("Soma dos Dados")
         ax.set_ylabel("Frequência")
-        ax.set_title("Distribuição dos Lançamentos dos Dados")
+        ax.set_title("Distribuição das Somas dos Lançamentos")
         st.pyplot(fig)
 
 
