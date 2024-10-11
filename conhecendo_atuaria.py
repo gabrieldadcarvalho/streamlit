@@ -63,29 +63,30 @@ def roll_dice():
             "Esta página oferece uma maneira simples de simular múltiplos lançamentos de dados justos de **6** lados, possibilitando a observação de padrões estatísticos. "
             "Você pode escolher simular um ou dois dados e observar as métricas com base nas somas."
         )
-        st.markdown(
-            "### CÓDIGO UTILIZADO:\n"
-            "```python\n"
-            "import numpy as np\n"
-            "import pandas as pd\n"
-            "\n"
-            "num_rolls = st.number_input('Quantos lançamentos deseja simular?', 1, 100000)\n"
-            "roll = np.random.randint(1, 7, size=int(num_rolls))\n"
-            "mean = np.mean(roll)\n"
-            "var = np.var(roll)\n"
-            "dp = np.std(roll)\n"
-            "\n"
-            "df_metrics = pd.DataFrame(\n"
-            "    {\n"
-            "        'Valor': [mean, var, dp]\n"
-            "    },\n"
-            "    index=['Média', 'Variância', 'Desvio Padrão']\n"
-            ")\n"
-            "\n"
-            "st.subheader(f'Resultados da Simulação com {num_rolls} Lançamentos:')\n"
-            "st.dataframe(df_metrics)\n"
-            "```\n"
-        )
+
+    st.markdown(
+        "### CÓDIGO UTILIZADO:\n"
+        "```python\n"
+        "import numpy as np\n"
+        "import pandas as pd\n"
+        "\n"
+        "num_rolls = st.number_input('Quantos lançamentos deseja simular?', 1, 100000)\n"
+        "roll = np.random.randint(1, 7, size=int(num_rolls))\n"
+        "mean = np.mean(roll)\n"
+        "var = np.var(roll)\n"
+        "dp = np.std(roll)\n"
+        "\n"
+        "df_metrics = pd.DataFrame(\n"
+        "    {\n"
+        "        'Valor': [mean, var, dp]\n"
+        "    },\n"
+        "    index=['Média', 'Variância', 'Desvio Padrão']\n"
+        ")\n"
+        "\n"
+        "st.subheader(f'Resultados da Simulação com {num_rolls} Lançamentos:')\n"
+        "st.dataframe(df_metrics)\n"
+        "```\n"
+    )
 
     num_dices = st.selectbox("Quantos dados deseja simular?", [1, 2])
     num_rolls = st.number_input("Quantos lançamentos deseja simular?", 1, 100000)
