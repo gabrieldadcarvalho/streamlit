@@ -8,6 +8,7 @@ from modeling_simulation.ibovespa_distribution.page_ibovespa import (
 )
 from finance.sharpe_optimization import sharpe_optimization  # Importando a função p_sp_max
 from ai.health_insurance import nn_insurence  
+from modeling_simulation.actuar import actuar_pdf
 
 def about_page():
     raw_url = (
@@ -33,6 +34,8 @@ def modeling_simulation_page(option):
         congruence()
     elif option == "Ibovespa Distribution":
         show_data_simulation_pdf()
+    elif option == "Actuarial Modeling with the Actuar Package":
+        actuar_pdf()
 
 
 def finance_page(option):
@@ -95,6 +98,7 @@ def main():
             "Drunk Walk Simulation",
             "Midsquare Generator",
             "Linear Congruential Generator",
+            "Actuarial Modeling with the Actuar Package",
             "Ibovespa Distribution",
         ],
         key="stats_option",
