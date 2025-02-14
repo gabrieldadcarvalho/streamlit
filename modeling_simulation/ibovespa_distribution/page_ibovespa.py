@@ -23,9 +23,7 @@ def show_data_simulation_pdf():
         """
         )
 
-    st.markdown(
-        f"[Clique aqui para visualizar o PDF](https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf)"
-    )
+    st.markdown(f"[Clique aqui para visualizar o PDF](https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf)")
     # pdf_url = "https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf"
 
     # st.markdown(
