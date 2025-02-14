@@ -1,18 +1,5 @@
 import streamlit as st
-import requests
-from streamlit_pdf_viewer import pdf_viewer
-
-
-def displayPDF(url):
-# Fazendo o download do PDF
-  response = requests.get(url)
-
-  if response.status_code == 200:
-      # Exibe o PDF utilizando o conteúdo binário
-      pdf_viewer(input=response.content, width=700)
-  else:
-      st.error(f"Erro ao carregar o PDF. Status: {response.status_code}")
-
+from functions.displaypdf import displayPDF
 
 def actuar_pdf():
     col1, col2 = st.columns([1, 5])
@@ -22,6 +9,7 @@ def actuar_pdf():
         )  # Substitua pelo caminho real da imagem
     with col2:
         st.title("Resumo do Artigo “actuar: An R Package for Actuarial Science”")
+
     st.markdown(
         """
   Este PDF apresenta um resumo dos primeiros tópicos do artigo **"actuar: An R Package for Actuarial Science"**, elaborado em **RMarkdown**. O pacote **actuar** é amplamente utilizado em ciências atuariais e oferece ferramentas especializadas para:
@@ -37,5 +25,5 @@ def actuar_pdf():
 
     pdf_url = "https://github.com/gabrieldadcarvalho/Introduction-to-loss-of-variables-modeling-in-actuarial-science/raw/main/abstract_actuar.pdf"
 
-    # Exibir o PDF
+    # Exibir o PDF e botão de download
     displayPDF(pdf_url)

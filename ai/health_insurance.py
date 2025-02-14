@@ -1,17 +1,5 @@
 import streamlit as st
-import base64
-import requests
-
-
-def displayPDF(url):
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        base64_pdf = base64.b64encode(response.content).decode("utf-8")
-        pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-        st.markdown(pdf_display, unsafe_allow_html=True)
-    else:
-        st.error(f"Erro ao carregar o PDF. Status: {response.status_code}")
+from functions.displaypdf import displayPDF
 
 
 def nn_insurence():
@@ -42,7 +30,7 @@ def nn_insurence():
     """
     )
 
-    pdf_url = "https://nbviewer.org/github/gabrieldadcarvalho/neural_network/blob/main/projeto/Neural_Network_Projetc.pdf"
+    pdf_url = "https://github.com/gabrieldadcarvalho/neural_network/raw/main/projeto/Neural_Network_Projetc.pdf"
 
     # Exibir o PDF
     displayPDF(pdf_url)
