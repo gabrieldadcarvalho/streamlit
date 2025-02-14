@@ -73,16 +73,15 @@ def main():
     if "ai_option" not in st.session_state:
         st.session_state["ai_option"] = None
 
-    # Seção "About Me"
-    # st.sidebar.header("📌 About Me")
-    # about_option = st.sidebar.radio(
-    #     "Select an option:",
-    #     ["Resume"],
-    #     index=0,
-    #     key="about_option",
-    #     on_change=reset_selection,
-    #     args=("about_option",),
-    #)
+    #Seção "About Me"
+    st.sidebar.header("📌 About Me")
+    about_option = st.sidebar.radio(
+        "Select an option:",
+        ["Resume"],
+        key="about_option",
+        on_change=reset_selection,
+        args=("about_option",),
+    )
 
     st.sidebar.markdown("---")  # Separador
 
@@ -96,7 +95,6 @@ def main():
             "Linear Congruential Generator",
             "Ibovespa Distribution",
         ],
-        index=0,
         key="stats_option",
         on_change=reset_selection,
         args=("stats_option",),
@@ -109,7 +107,6 @@ def main():
     finance_option = st.sidebar.radio(
         "Choose a Model:",
         ["Portfolio Optimization", "Risk Analysis"],
-        index=0,
         key="finance_option",
         on_change=reset_selection,
         args=("finance_option",),
@@ -122,7 +119,6 @@ def main():
     ai_option = st.sidebar.radio(
         "Choose a Model:",
         ["Neural Networks", "Predictive Models"],
-        index=0,
         key="ai_option",
         on_change=reset_selection,
         args=("ai_option",),
