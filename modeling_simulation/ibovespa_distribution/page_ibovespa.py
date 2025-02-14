@@ -11,7 +11,7 @@ def show_data_simulation_pdf():
         )  # Substitua pelo caminho real da imagem
     with col2:
         st.markdown(
-        """
+            """
         Este PDF apresenta uma análise detalhada dos retornos diários do Índice Bovespa (IBOV), com o objetivo de 
         determinar se a distribuição de probabilidade desses retornos pode ser adequadamente modelada por uma distribuição 
         **Normal** ou por uma distribuição **t de Student**. A conclusão deste estudo é fundamental para a realização de 
@@ -23,10 +23,12 @@ def show_data_simulation_pdf():
         """
         )
 
-    st.markdown(f"[Clique aqui para visualizar o PDF](https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf)")
+    st.markdown(
+        f"[Clique aqui para visualizar o PDF](https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf)"
+    )
     # pdf_url = "https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf"
 
     # st.markdown(
     #     f'<iframe src="{pdf_url}" width="800" height="700"></iframe>',
     #     unsafe_allow_html=True,
-    #)
+    # )
