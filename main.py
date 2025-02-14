@@ -3,9 +3,7 @@ import requests
 from modeling_simulation.congruence import congruence
 from modeling_simulation.drunk_walk import drunk_walk
 from modeling_simulation.midsquare import midsquare
-from modeling_simulation.ibovespa_distribution.page_ibovespa import (
-    show_data_simulation_pdf,
-)
+from modeling_simulation.ibovespa_distribution import ibovespa_distribution_pdf
 from finance.sharpe_optimization import sharpe_optimization  # Importando a função p_sp_max
 from ai.health_insurance import nn_insurence  
 from modeling_simulation.actuar import actuar_pdf
@@ -32,8 +30,8 @@ def modeling_simulation_page(option):
         midsquare()
     elif option == "Linear Congruential Generator":
         congruence()
-    elif option == "Ibovespa Distribution":
-        show_data_simulation_pdf()
+    elif option == "Ibovespa Returns Distribution":
+        ibovespa_distribution_pdf()
     elif option == "Actuarial Modeling with the Actuar Package":
         actuar_pdf()
 
@@ -99,7 +97,7 @@ def main():
             "Midsquare Generator",
             "Linear Congruential Generator",
             "Actuarial Modeling with the Actuar Package",
-            "Ibovespa Distribution",
+            "Ibovespa Returns Distribution",
         ],
         key="stats_option",
         on_change=reset_selection,

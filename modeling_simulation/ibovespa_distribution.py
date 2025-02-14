@@ -2,7 +2,7 @@ import streamlit as st
 from functions.displaypdf import displayPDF
 
 
-def show_data_simulation_pdf():
+def ibovespa_distribution_pdf():
     col1, col2 = st.columns([1, 5])
     with col1:
         st.image(
