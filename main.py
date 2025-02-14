@@ -19,7 +19,9 @@ def about_page():
     with col1:
         st.image("pictures/me_picture.jpg", width=150)
     with col2:
-        st.markdown(response.text)
+        st.title("Bem-vindo ao meu site Streamlit!")
+    
+    st.markdown(response.text)
 
 
 def modeling_simulation_page(option):

@@ -1,5 +1,3 @@
-# Bem-vindo ao meu site Streamlit!
-
 Este site foi criado para compartilhar alguns dos meus projetos desenvolvidos durante a minha graduação em **Ciências Atuariais** na **UFPE**. Nele, aplico minha experiência em **Python** para construir soluções voltadas às áreas de **estatística**, **finanças**, **ciências atuariais** e **inteligência artificial**, sempre com o objetivo de contribuir para a comunidade.
 
 Algumas páginas apresentam métodos estatísticos interativos, enquanto outras contêm relatórios gerados em **Jupyter Notebook**, disponibilizados no formato **PDF**.
