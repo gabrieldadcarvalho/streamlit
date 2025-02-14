@@ -3,7 +3,7 @@ import requests
 from modeling_simulation.congruence import congruence
 from modeling_simulation.drunk_walk import drunk_walk
 from modeling_simulation.midsquare import midsquare
-
+from modeling_simulation.ibovespa_distribution.page_ibovespa import display_html_work
 
 def about_page():
     raw_url = (
@@ -25,6 +25,8 @@ def modeling_simulation_page(option):
         midsquare()
     elif option == "Linear Congruential Generator":
         congruence()
+    elif option == "Ibovespa Distribution":
+        display_html_work()
 
 
 def social_links():
@@ -80,6 +82,7 @@ def main():
             "Drunk Walk Simulation",
             "Midsquare Generator",
             "Linear Congruential Generator",
+            "Ibovespa Distribution",
         ],
         index=None,
         key="stats_option",
