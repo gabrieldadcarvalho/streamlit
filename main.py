@@ -3,7 +3,11 @@ import requests
 from modeling_simulation.congruence import congruence
 from modeling_simulation.drunk_walk import drunk_walk
 from modeling_simulation.midsquare import midsquare
-from modeling_simulation.ibovespa_distribution.page_ibovespa import display_html_work
+from modeling_simulation.ibovespa_distribution.page_ibovespa import (
+    show_data_simulation_pdf,
+)
+from finance.sharpe_optimization import sharpe_optimization  # Importando a função p_sp_max
+
 
 def about_page():
     raw_url = (
@@ -26,7 +30,15 @@ def modeling_simulation_page(option):
     elif option == "Linear Congruential Generator":
         congruence()
     elif option == "Ibovespa Distribution":
-        display_html_work()
+        show_data_simulation_pdf()
+
+
+def finance_page(option):
+    if option == "Portfolio Optimization":
+        # Chama a função p_sp_max do arquivo sharpe_optimization.py
+        sharpe_optimization()
+    elif option == "Risk Analysis":
+        st.write("🔍 Selected Finance Model: Risk Analysis")
 
 
 def social_links():
@@ -122,7 +134,7 @@ def main():
     if stats_option:
         modeling_simulation_page(stats_option)
     elif finance_option:
-        st.write(f"🔍 Selected Finance Model: {finance_option}")
+        finance_page(finance_option)  # Passa a opção para a função finance_page
     elif ai_option:
         st.write(f"🤖 Selected AI Model: {ai_option}")
     else:

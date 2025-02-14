@@ -1,20 +1,31 @@
 import streamlit as st
-import os
 
 
-def display_html_work():
-    # Título
+def show_data_simulation_pdf():
     st.title("Análise Estatística dos Retornos Diários do Índice Ibovespa")
-    st.subheader("Comparação entre Distribuições Normal e t de Student")
 
-    # Carregando o arquivo HTML
-    html_file_path = "https://raw.githubusercontent.com/gabrieldadcarvalho/streamlit/refs/heads/main/modeling_simulation/ibovespa_distribution/ibovespa_distribution.html"  # Substitua com o caminho real do arquivo HTML
+    col1, col2 = st.columns([1, 5])
+    with col1:
+        st.image(
+            "pictures/ibov.png", width=100
+        )  # Substitua pelo caminho real da imagem
+    with col2:
+      st.markdown(
+          """
+          Este PDF apresenta uma análise detalhada dos retornos diários do Índice Bovespa (IBOV), com o objetivo de 
+          determinar se a distribuição de probabilidade desses retornos pode ser adequadamente modelada por uma distribuição 
+          **Normal** ou por uma distribuição **t de Student**. A conclusão deste estudo é fundamental para a realização de 
+          simulações futuras, como o modelo de **Monte Carlo**, ou outras abordagens de simulação, pois a distribuição 
+          de probabilidade dos retornos do índice foi identificada e compreendida. 
+          
+          Ao explorar o conteúdo deste estudo, você terá uma compreensão mais aprofundada da distribuição dos dados financeiros 
+          do IBOV e seu comportamento estatístico.
+          """
+    )
+      
+    pdf_url = "https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf"
 
-    if os.path.exists(html_file_path):
-        with open(html_file_path, "r") as file:
-            html_content = file.read()
-
-        # Exibe o conteúdo HTML no Streamlit
-        st.markdown(html_content, unsafe_allow_html=True)
-    else:
-        st.error("Arquivo HTML não encontrado.")
+    st.markdown(
+        f'<iframe src="{pdf_url}" width="800" height="700"></iframe>',
+        unsafe_allow_html=True,
+    )
