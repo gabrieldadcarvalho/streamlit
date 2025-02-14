@@ -96,7 +96,7 @@ def main():
             "Linear Congruential Generator",
             "Ibovespa Distribution",
         ],
-        index=None,
+        index=0,
         key="stats_option",
         on_change=reset_selection,
         args=("stats_option",),
@@ -109,7 +109,7 @@ def main():
     finance_option = st.sidebar.radio(
         "Choose a Model:",
         ["Portfolio Optimization", "Risk Analysis"],
-        index=None,
+        index=0,
         key="finance_option",
         on_change=reset_selection,
         args=("finance_option",),
@@ -122,7 +122,7 @@ def main():
     ai_option = st.sidebar.radio(
         "Choose a Model:",
         ["Neural Networks", "Predictive Models"],
-        index=None,
+        index=0,
         key="ai_option",
         on_change=reset_selection,
         args=("ai_option",),
