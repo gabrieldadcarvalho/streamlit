@@ -23,20 +23,24 @@ def about_page():
 
 
 def modeling_simulation_page():
-    opcao = st.sidebar.radio(
+    option = st.sidebar.radio(
         "Problemas:",
-        ("Drunk of Walk Simulation", "Midsquare Generator", "Linear Congruential Generator"),
+        (
+            "Drunk of Walk Simulation",
+            "Midsquare Generator",
+            "Linear Congruential Generator",
+        ),
         format_func=lambda x: (
             "Drunk of Walk"
             if x == "Drunk of Walk"
             else ("Midsquare" if x == "Midsquare" else "Linear Congruential Generator")
         ),
     )
-    if opcao == "Drunk of Walk":
+    if option == "Drunk of Walk":
         drunk_walk()
-    elif opcao == "Midsquare":
+    elif option == "Midsquare":
         midsquare()
-    elif opcao == "":
+    elif option == "Linear Congruential Generator":
         congruence()
 
 
@@ -59,16 +63,16 @@ def social_links():
 
 def main():
     st.sidebar.image("pictures/logo_streamlit_gc.png", width=200)
-    opcoes = st.sidebar.radio(
+    option = st.sidebar.radio(
         "Select a page:",
         ("About Me", "Modeling and Simulation"),
         format_func=lambda x: (
             "About Me" if x == "About Me" else "Modeling and Simulation"
         ),
     )
-    if opcoes == "Modeling and Simulation":
+    if option == "Modeling and Simulation":
         modeling_simulation_page()
-    elif opcoes == "About Me":
+    elif option == "About Me":
         about_page()
     social_links()
 
