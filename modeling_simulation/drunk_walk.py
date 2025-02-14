@@ -63,7 +63,9 @@ def drunk_walk():
                 i += direcao[np.random.choice(len(direcao))]
                 historico.append(i.copy())
                 if np.all(i == f):
-                    st.success("O BÊBADO CHEGOU NO PONTO (5,5) DEPOIS DE {} PASSOS".format(len(historico)))
+                    st.success(
+                        "O BÊBADO CHEGOU NO PONTO (5,5) DEPOIS DE {len(historico)} PASSOS"
+                    )
                     break
             else:
                 st.error("O BÊBADO SE PERDEU DEPOIS DE 2000 PASOS")
