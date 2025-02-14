@@ -2,28 +2,18 @@ import streamlit as st
 import base64
 import requests
 import tempfile
-
+from streamlit_pdf_viewer import pdf_viewer
 
 def displayPDF(url):
-    # Baixar o PDF da URL
+
+    # Fazendo o download do PDF
     response = requests.get(url)
+
     if response.status_code == 200:
-        # Criar um arquivo temporário para armazenar o PDF
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_pdf:
-            tmp_pdf.write(response.content)
-            pdf_path = tmp_pdf.name
-
-        # Ler e converter para base64
-        with open(pdf_path, "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode("utf-8")
-
-        # Gerar HTML para embutir o PDF
-        pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-
-        # Mostrar o PDF no Streamlit
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        # Exibe o PDF utilizando o conteúdo binário
+        pdf_viewer(input=response.content, width=700)
     else:
-        st.error("Erro ao baixar o PDF. Verifique a URL.")
+        st.error(f"Erro ao carregar o PDF. Status: {response.status_code}")
 
 
 def nn_insurence():
@@ -40,11 +30,11 @@ def nn_insurence():
 
     st.markdown(
         """
-    Este PDF apresenta um estudo detalhado sobre a aplicação de redes neurais na previsão de custos em seguros de saúde. O trabalho foi desenvolvido durante a disciplina de Neural Networks, oferecida pelo Departamento de Estatística da Universidade Federal de Pernambuco.
+    Este PDF apresenta um estudo detalhado sobre a aplicação de **redes neurais** na previsão de custos em seguros de saúde. O trabalho foi desenvolvido durante a disciplina **ET645 - REDES NEURAIS**, oferecida pelo Departamento de Estatística da Universidade Federal de Pernambuco.
 
-    O foco principal do estudo foi a análise exploratória dos dados, utilizando abordagens estatísticas para compreender melhor os padrões e relações entre as variáveis. Foram aplicados:
+    O foco principal do estudo foi a **análise exploratória dos dados**, utilizando abordagens estatísticas para compreender melhor os padrões e relações entre as variáveis. Foram aplicados:
 
-    * *Normalização de dados* para melhorar o desempenho dos modelos.
+    * **Normalização de dados** para melhorar o desempenho dos modelos.
     * **Preparação e limpeza de dados** para garantir a qualidade e consistência dos dados.
     * **Teste t de Student** para avaliar a diferença entre variáveis binárias e numéricas;
     * **Análise de correlação** para identificar relações entre variáveis;
