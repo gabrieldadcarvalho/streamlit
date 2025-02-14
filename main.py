@@ -37,7 +37,7 @@ def modeling_simulation_page():
     elif option == "Midsquare Generator":
         midsquare()
     elif option == "Linear Congruential Generator":
-        congruence()
+        congruence.congruence()
 
 
 def contact_page():
