@@ -46,6 +46,7 @@ def ai_page(option):
         nn_insurence()
     if option == "Machine Learning for Census Income":
         ml_census_income()
+        
 def social_links():
     st.sidebar.title("Social Links")
     col1, col2 = st.sidebar.columns(2)
@@ -112,7 +113,7 @@ def main():
     st.sidebar.header("💰 Finance")
     finance_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Portfolio Optimization", "Risk Analysis"],
+        ["Portfolio Optimization"],
         key="finance_option",
         on_change=reset_selection,
         args=("finance_option",),
