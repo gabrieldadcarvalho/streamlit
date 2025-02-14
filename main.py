@@ -82,7 +82,7 @@ def main():
     #     key="about_option",
     #     on_change=reset_selection,
     #     args=("about_option",),
-    )
+    #)
 
     st.sidebar.markdown("---")  # Separador
 
