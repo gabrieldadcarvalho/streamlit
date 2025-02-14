@@ -4,7 +4,6 @@ import plotly.graph_objects as go
 
 
 def drunk_walk():
-    st.title("Andar do Bêbado")
 
     col1, col2 = st.columns([1, 5])
     with col1:
@@ -12,11 +11,12 @@ def drunk_walk():
             "pictures/bebado.jpg", width=100
         )  # Substitua pelo caminho real da imagem
     with col2:
-        st.write(
-            "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está "
-            "caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de "
-            "forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
-        )
+        st.title("Andar do Bêbado")
+    st.write(
+        "Bem-vindo à página do Andar do Bêbado. Neste exemplo, simularemos o comportamento de um bêbado que está "
+        "caminhando aleatoriamente em uma grade. O objetivo é demonstrar como um agente pode se movimentar de "
+        "forma aleatória do ponto (0,0) até o ponto (5,5) e visualizar sua trajetória."
+    )
 
     st.write(
         "Você pode simular o andar do bêbado por um número específico de passos ou até que ele chegue ao ponto (5,5). "

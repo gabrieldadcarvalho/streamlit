@@ -7,7 +7,7 @@ from modeling_simulation.ibovespa_distribution.page_ibovespa import (
     show_data_simulation_pdf,
 )
 from finance.sharpe_optimization import sharpe_optimization  # Importando a função p_sp_max
-
+from ai.health_insurance import nn_insurence  
 
 def about_page():
     raw_url = (
@@ -35,11 +35,11 @@ def modeling_simulation_page(option):
 
 def finance_page(option):
     if option == "Portfolio Optimization":
-        # Chama a função p_sp_max do arquivo sharpe_optimization.py
         sharpe_optimization()
-    elif option == "Risk Analysis":
-        st.write("🔍 Selected Finance Model: Risk Analysis")
 
+def ai_page(option):
+    if option == "Neural Networks in Health Insurance":
+        nn_insurence()
 
 def social_links():
     st.sidebar.title("Social Links")
@@ -73,7 +73,7 @@ def main():
     if "ai_option" not in st.session_state:
         st.session_state["ai_option"] = None
 
-    #Seção "About Me"
+    # Seção "About Me"
     st.sidebar.header("📌 About Me")
     about_option = st.sidebar.radio(
         "Select an option:",
@@ -118,7 +118,7 @@ def main():
     st.sidebar.header("🧠 Artificial Intelligence")
     ai_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Neural Networks", "Predictive Models"],
+        ["Neural Networks in Health Insurance"],
         key="ai_option",
         on_change=reset_selection,
         args=("ai_option",),
@@ -132,7 +132,7 @@ def main():
     elif finance_option:
         finance_page(finance_option)  # Passa a opção para a função finance_page
     elif ai_option:
-        st.write(f"🤖 Selected AI Model: {ai_option}")
+        ai_page(ai_option)
     else:
         about_page()  # Se nada for selecionado, exibe "About Me"
 
