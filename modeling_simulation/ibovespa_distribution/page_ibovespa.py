@@ -31,4 +31,4 @@ def show_data_simulation_pdf():
     # st.markdown(
     #     f'<iframe src="{pdf_url}" width="800" height="700"></iframe>',
     #     unsafe_allow_html=True,
-    )
+    #)
