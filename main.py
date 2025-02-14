@@ -1,9 +1,9 @@
 import streamlit as st
 import requests
-import streamlit.modeling_simulation.congruence as congruence
-import streamlit.modeling_simulation.drunk_walk as drunk_walk
-import streamlit.modeling_simulation.inverse_transformation as inverse_transformation
-import streamlit.modeling_simulation.midsquare as midsquare
+from streamlit.modeling_simulation.congruence import congruence
+from streamlit.modeling_simulation.drunk_walk import drunk_walk
+from streamlit.modeling_simulation.inverse_transformation import inverse_transformation
+from streamlit.modeling_simulation.midsquare import midsquare
 
 
 def about_page():

@@ -3,7 +3,7 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-def bebado():
+def drunk_walk():
     st.title("Andar do Bêbado")
 
     col1, col2 = st.columns([1, 5])
