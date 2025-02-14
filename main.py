@@ -74,14 +74,14 @@ def main():
         st.session_state["ai_option"] = None
 
     # Seção "About Me"
-    st.sidebar.header("📌 About Me")
-    about_option = st.sidebar.radio(
-        "Select an option:",
-        ["Resume"],
-        index=0,
-        key="about_option",
-        on_change=reset_selection,
-        args=("about_option",),
+    # st.sidebar.header("📌 About Me")
+    # about_option = st.sidebar.radio(
+    #     "Select an option:",
+    #     ["Resume"],
+    #     index=0,
+    #     key="about_option",
+    #     on_change=reset_selection,
+    #     args=("about_option",),
     )
 
     st.sidebar.markdown("---")  # Separador
