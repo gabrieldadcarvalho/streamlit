@@ -22,27 +22,14 @@ def about_page():
         st.markdown(response.text)
 
 
-def modeling_simulation_page():
-    option = st.sidebar.radio(
-        "Select a Method:",
-        (
-            "Drunk Walk Simulation",
-            "Midsquare Generator",
-            "Linear Congruential Generator",
-        ),
-    )
-
+def modeling_simulation_page(option):
+    """Executa a função correspondente com base na opção selecionada."""
     if option == "Drunk Walk Simulation":
         drunk_walk()
     elif option == "Midsquare Generator":
         midsquare()
     elif option == "Linear Congruential Generator":
-        congruence.congruence()
-
-
-def contact_page():
-    st.title("Contact")
-    st.write("This is the contact page.")
+        congruence()
 
 
 def social_links():
@@ -61,13 +48,13 @@ def main():
 
     # Seção "About Me"
     st.sidebar.header("📌 About Me")
-    page = st.sidebar.radio("Navigation", ["About Me"])
+    page = st.sidebar.radio("Navigation", ["About Me"], index=0)
 
     st.sidebar.markdown("---")  # Separador
 
     # Seção de Modelagem e Simulação
     st.sidebar.header("📊 Statistics")
-    stats_options = st.sidebar.radio(
+    stats_option = st.sidebar.radio(
         "Choose a Model:",
         [
             "Drunk Walk Simulation",
@@ -99,11 +86,11 @@ def main():
 
     social_links()  # Exibe os links sociais
 
-    # Lógica para exibição das páginas
+    # Lógica para exibição das páginas e modelos
     if page == "About Me":
         about_page()
-    elif stats_options:
-        modeling_simulation_page()
+    elif stats_option:
+        modeling_simulation_page(stats_option)
     elif finance_options:
         st.write(f"🔍 Selected Finance Model: {finance_options}")
     elif ai_options:
