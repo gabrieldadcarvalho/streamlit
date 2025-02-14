@@ -7,9 +7,6 @@ def displayPDF(url):
     response = requests.get(url)
 
     if response.status_code == 200:
-        # Exibe o PDF utilizando o conteúdo binário
-        pdf_viewer(input=response.content, width=700)
-
         # Criando um botão para download do PDF
         st.download_button(
             label="📥 Baixar PDF",
@@ -17,5 +14,7 @@ def displayPDF(url):
             file_name="resumo_actuar.pdf",
             mime="application/pdf",
         )
+        # Exibe o PDF utilizando o conteúdo binário
+        pdf_viewer(input=response.content, width=700)
     else:
         st.error(f"Erro ao carregar o PDF. Status: {response.status_code}")
