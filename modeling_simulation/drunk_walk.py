@@ -64,7 +64,7 @@ def drunk_walk():
                 historico.append(i.copy())
                 if np.all(i == f):
                     st.success(
-                        f"O BÊBADO CHEGOU NO PONTO (5,5) DEPOIS DE {len(historico)} PASSOS"
+                        f"O BÊBADO CHEGOU NO PONTO (5,5) DEPOIS DE {len(historico) - 1} PASSOS"
                     )
                     break
             else:
