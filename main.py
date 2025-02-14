@@ -24,21 +24,17 @@ def about_page():
 
 def modeling_simulation_page():
     option = st.sidebar.radio(
-        "Problemas:",
+        "Select a Method:",
         (
-            "Drunk of Walk Simulation",
+            "Drunk Walk Simulation",
             "Midsquare Generator",
             "Linear Congruential Generator",
         ),
-        format_func=lambda x: (
-            "Drunk of Walk"
-            if x == "Drunk of Walk"
-            else ("Midsquare" if x == "Midsquare" else "Linear Congruential Generator")
-        ),
     )
-    if option == "Drunk of Walk":
+
+    if option == "Drunk Walk Simulation":
         drunk_walk()
-    elif option == "Midsquare":
+    elif option == "Midsquare Generator":
         midsquare()
     elif option == "Linear Congruential Generator":
         congruence()
@@ -51,7 +47,6 @@ def contact_page():
 
 def social_links():
     st.sidebar.title("Social Links")
-
     col1, col2 = st.sidebar.columns(2)
     with col1:
         st.sidebar.link_button("GitHub", "https://github.com/gabrieldadcarvalho")
@@ -63,18 +58,56 @@ def social_links():
 
 def main():
     st.sidebar.image("pictures/logo_streamlit_gc.png", width=200)
-    option = st.sidebar.radio(
-        "Select a page:",
-        ("About Me", "Modeling and Simulation"),
-        format_func=lambda x: (
-            "About Me" if x == "About Me" else "Modeling and Simulation"
-        ),
+
+    # Seção "About Me"
+    st.sidebar.header("📌 About Me")
+    page = st.sidebar.radio("Navigation", ["About Me"])
+
+    st.sidebar.markdown("---")  # Separador
+
+    # Seção de Modelagem e Simulação
+    st.sidebar.header("📊 Statistics")
+    stats_options = st.sidebar.radio(
+        "Choose a Model:",
+        [
+            "Drunk Walk Simulation",
+            "Midsquare Generator",
+            "Linear Congruential Generator",
+        ],
+        index=None,
     )
-    if option == "Modeling and Simulation":
-        modeling_simulation_page()
-    elif option == "About Me":
+
+    st.sidebar.markdown("---")  # Separador
+
+    # Seção de Finanças (Placeholder)
+    st.sidebar.header("💰 Finance")
+    finance_options = st.sidebar.radio(
+        "Choose a Model:",
+        ["Portfolio Optimization", "Risk Analysis"],
+        index=None,
+    )
+
+    st.sidebar.markdown("---")  # Separador
+
+    # Seção de Inteligência Artificial (Placeholder)
+    st.sidebar.header("🧠 Artificial Intelligence")
+    ai_options = st.sidebar.radio(
+        "Choose a Model:",
+        ["Neural Networks", "Predictive Models"],
+        index=None,
+    )
+
+    social_links()  # Exibe os links sociais
+
+    # Lógica para exibição das páginas
+    if page == "About Me":
         about_page()
-    social_links()
+    elif stats_options:
+        modeling_simulation_page()
+    elif finance_options:
+        st.write(f"🔍 Selected Finance Model: {finance_options}")
+    elif ai_options:
+        st.write(f"🤖 Selected AI Model: {ai_options}")
 
 
 if __name__ == "__main__":
