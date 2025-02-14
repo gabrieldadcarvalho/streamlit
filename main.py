@@ -89,13 +89,16 @@ def main():
 
     # Seção "About Me"
     st.sidebar.header("📌 About Me")
+    option = st.sidebar.radio(
+        "About Me:",
+    )
     st.sidebar.markdown("Saiba mais sobre mim e meu trabalho.")
 
     st.sidebar.markdown("---")  # Separador
 
     # Seção de Estatística
     st.sidebar.header("📊 Statistics")
-    stats_option = st.sidebar.radio(
+    option = st.sidebar.radio(
         "Choose a Model:",
         [
             "Drunk Walk Simulation",
@@ -109,7 +112,7 @@ def main():
 
     # Seção de Finanças
     st.sidebar.header("💰 Finance")
-    finance_option = st.sidebar.radio(
+    option = st.sidebar.radio(
         "Choose a Model:",
         ["Portfolio Optimization", "Risk Analysis"],
         index=None,
@@ -119,7 +122,7 @@ def main():
 
     # Seção de Inteligência Artificial
     st.sidebar.header("🧠 Artificial Intelligence")
-    ai_option = st.sidebar.radio(
+    option = st.sidebar.radio(
         "Choose a Model:",
         ["Neural Networks", "Predictive Models"],
         index=None,
@@ -128,12 +131,12 @@ def main():
     social_links()  # Exibe os links sociais
 
     # Lógica de navegação
-    if stats_option:
-        modeling_simulation_page(stats_option)
-    elif finance_option:
-        st.write(f"🔍 Selected Finance Model: {finance_option}")
-    elif ai_option:
-        st.write(f"🤖 Selected AI Model: {ai_option}")
+    if option:
+        modeling_simulation_page(option)
+    elif option:
+        st.write(f"🔍 Selected Finance Model: {option}")
+    elif option:
+        st.write(f"🤖 Selected AI Model: {option}")
     else:
         about_page()  # Se nada for selecionado, exibe "About Me"
 
