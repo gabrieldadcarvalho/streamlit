@@ -7,6 +7,7 @@ from modeling_simulation.ibovespa_distribution import ibovespa_distribution_pdf
 from finance.sharpe_optimization import sharpe_optimization  # Importando a função p_sp_max
 from ai.health_insurance import nn_insurence  
 from modeling_simulation.actuar import actuar_pdf
+from ai.census_income import ml_census_income
 
 def about_page():
     raw_url = (
@@ -43,7 +44,8 @@ def finance_page(option):
 def ai_page(option):
     if option == "Neural Networks in Health Insurance":
         nn_insurence()
-
+    if option == "Machine Learning for Census Income":
+        ml_census_income()
 def social_links():
     st.sidebar.title("Social Links")
     col1, col2 = st.sidebar.columns(2)
@@ -122,7 +124,7 @@ def main():
     st.sidebar.header("🧠 Artificial Intelligence")
     ai_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Neural Networks in Health Insurance"],
+        ["Neural Networks in Health Insurance", "Machine Learning for Census Income"],
         key="ai_option",
         on_change=reset_selection,
         args=("ai_option",),

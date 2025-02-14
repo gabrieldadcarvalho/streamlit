@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_pdf_viewer import pdf_viewer
 import requests
 
-def displayPDF(url):
+def displayPDF(url, name):
     # Fazendo o download do PDF
     response = requests.get(url)
 
@@ -11,7 +11,7 @@ def displayPDF(url):
         st.download_button(
             label="📥 Baixar PDF",
             data=response.content,
-            file_name="resumo_actuar.pdf",
+            file_name=f"{name}.pdf",
             mime="application/pdf",
         )
         # Exibe o PDF utilizando o conteúdo binário
