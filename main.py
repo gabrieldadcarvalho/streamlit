@@ -90,7 +90,8 @@ def main():
     # Seção "About Me"
     st.sidebar.header("📌 About Me")
     option = st.sidebar.radio(
-        "About Me:",
+        "Select an option:",
+        ["Resume"]
     )
     st.sidebar.markdown("Saiba mais sobre mim e meu trabalho.")
 
