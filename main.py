@@ -91,9 +91,9 @@ def main():
     st.sidebar.header("📌 About Me")
     option = st.sidebar.radio(
         "Select an option:",
-        ["Resume"]
+        ["Resume"],
+        index=None,
     )
-    st.sidebar.markdown("Saiba mais sobre mim e meu trabalho.")
 
     st.sidebar.markdown("---")  # Separador
 
