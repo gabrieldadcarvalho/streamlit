@@ -8,7 +8,7 @@ def display_html_work():
     st.subheader("Comparação entre Distribuições Normal e t de Student")
 
     # Carregando o arquivo HTML
-    html_file_path = "ibovespa_distribution.html"  # Substitua com o caminho real do arquivo HTML
+    html_file_path = "https://raw.githubusercontent.com/gabrieldadcarvalho/streamlit/refs/heads/main/modeling_simulation/ibovespa_distribution/ibovespa_distribution.html"  # Substitua com o caminho real do arquivo HTML
 
     if os.path.exists(html_file_path):
         with open(html_file_path, "r") as file:
