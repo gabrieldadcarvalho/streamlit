@@ -7,12 +7,9 @@ from modeling_simulation.midsquare import midsquare
 
 
 def about_page():
-    # URL do arquivo README.md no repositório do GitHub
     raw_url = (
         "https://raw.githubusercontent.com/gabrieldacarvalho/streamlit/main/README.md"
     )
-
-    # Fazendo a requisição para obter o conteúdo do arquivo
     response = requests.get(raw_url)
 
     col1, col2 = st.columns([1, 3])
@@ -23,7 +20,6 @@ def about_page():
 
 
 def modeling_simulation_page(option):
-    """Executa a função correspondente com base na opção selecionada."""
     if option == "Drunk Walk Simulation":
         drunk_walk()
     elif option == "Midsquare Generator":
@@ -46,55 +42,60 @@ def social_links():
 def main():
     st.sidebar.image("pictures/logo_streamlit_gc.png", width=200)
 
-    # Seção "About Me"
-    st.sidebar.header("📌 About Me")
-    page = st.sidebar.radio("Navigation", ["About Me"], index=0)
-
-    st.sidebar.markdown("---")  # Separador
-
-    # Seção de Modelagem e Simulação
-    st.sidebar.header("📊 Statistics")
-    stats_option = st.sidebar.radio(
-        "Choose a Model:",
-        [
-            "Drunk Walk Simulation",
-            "Midsquare Generator",
-            "Linear Congruential Generator",
-        ],
-        index=None,
+    # Divisão do sidebar
+    st.sidebar.header("📌 Navigation")
+    page = st.sidebar.radio(
+        "Choose a section:",
+        ["About Me", "Statistics", "Finance", "Artificial Intelligence"],
     )
 
-    st.sidebar.markdown("---")  # Separador
+    st.sidebar.markdown("---")  # Separador visual
 
-    # Seção de Finanças (Placeholder)
-    st.sidebar.header("💰 Finance")
-    finance_options = st.sidebar.radio(
-        "Choose a Model:",
-        ["Portfolio Optimization", "Risk Analysis"],
-        index=None,
-    )
+    if page == "Statistics":
+        st.sidebar.header("📊 Statistics Models")
+        stats_option = st.sidebar.radio(
+            "Choose a Model:",
+            [
+                "Drunk Walk Simulation",
+                "Midsquare Generator",
+                "Linear Congruential Generator",
+            ],
+            index=None,
+        )
+    else:
+        stats_option = None
 
-    st.sidebar.markdown("---")  # Separador
+    if page == "Finance":
+        st.sidebar.header("💰 Finance Models")
+        finance_option = st.sidebar.radio(
+            "Choose a Model:",
+            ["Portfolio Optimization", "Risk Analysis"],
+            index=None,
+        )
+    else:
+        finance_option = None
 
-    # Seção de Inteligência Artificial (Placeholder)
-    st.sidebar.header("🧠 Artificial Intelligence")
-    ai_options = st.sidebar.radio(
-        "Choose a Model:",
-        ["Neural Networks", "Predictive Models"],
-        index=None,
-    )
+    if page == "Artificial Intelligence":
+        st.sidebar.header("🧠 AI Models")
+        ai_option = st.sidebar.radio(
+            "Choose a Model:",
+            ["Neural Networks", "Predictive Models"],
+            index=None,
+        )
+    else:
+        ai_option = None
 
-    social_links()  # Exibe os links sociais
+    social_links()  # Exibir os links sociais no sidebar
 
-    # Lógica para exibição das páginas e modelos
+    # Renderizar a página selecionada
     if page == "About Me":
         about_page()
     elif stats_option:
         modeling_simulation_page(stats_option)
-    elif finance_options:
-        st.write(f"🔍 Selected Finance Model: {finance_options}")
-    elif ai_options:
-        st.write(f"🤖 Selected AI Model: {ai_options}")
+    elif finance_option:
+        st.write(f"🔍 Selected Finance Model: {finance_option}")
+    elif ai_option:
+        st.write(f"🤖 Selected AI Model: {ai_option}")
 
 
 if __name__ == "__main__":
