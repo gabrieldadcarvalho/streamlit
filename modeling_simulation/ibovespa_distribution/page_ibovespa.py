@@ -10,22 +10,25 @@ def show_data_simulation_pdf():
             "pictures/ibov.png", width=100
         )  # Substitua pelo caminho real da imagem
     with col2:
-      st.markdown(
-          """
-          Este PDF apresenta uma análise detalhada dos retornos diários do Índice Bovespa (IBOV), com o objetivo de 
-          determinar se a distribuição de probabilidade desses retornos pode ser adequadamente modelada por uma distribuição 
-          **Normal** ou por uma distribuição **t de Student**. A conclusão deste estudo é fundamental para a realização de 
-          simulações futuras, como o modelo de **Monte Carlo**, ou outras abordagens de simulação, pois a distribuição 
-          de probabilidade dos retornos do índice foi identificada e compreendida. 
-          
-          Ao explorar o conteúdo deste estudo, você terá uma compreensão mais aprofundada da distribuição dos dados financeiros 
-          do IBOV e seu comportamento estatístico.
-          """
-    )
-      
-    pdf_url = "https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf"
+        st.markdown(
+        """
+        Este PDF apresenta uma análise detalhada dos retornos diários do Índice Bovespa (IBOV), com o objetivo de 
+        determinar se a distribuição de probabilidade desses retornos pode ser adequadamente modelada por uma distribuição 
+        **Normal** ou por uma distribuição **t de Student**. A conclusão deste estudo é fundamental para a realização de 
+        simulações futuras, como o modelo de **Monte Carlo**, ou outras abordagens de simulação, pois a distribuição 
+        de probabilidade dos retornos do índice foi identificada e compreendida. 
+        
+        Ao explorar o conteúdo deste estudo, você terá uma compreensão mais aprofundada da distribuição dos dados financeiros 
+        do IBOV e seu comportamento estatístico.
+        """
+        )
 
     st.markdown(
-        f'<iframe src="{pdf_url}" width="800" height="700"></iframe>',
-        unsafe_allow_html=True,
+        f"[Clique aqui para visualizar o PDF](https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf)"
+    )
+    # pdf_url = "https://nbviewer.org/github/gabrieldadcarvalho/modeling_simulatiton/blob/main/works/ibov_index/data_simulation.pdf"
+
+    # st.markdown(
+    #     f'<iframe src="{pdf_url}" width="800" height="700"></iframe>',
+    #     unsafe_allow_html=True,
     )
