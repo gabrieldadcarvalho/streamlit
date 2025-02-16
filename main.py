@@ -4,10 +4,16 @@ from modeling_simulation.congruence import congruence
 from modeling_simulation.drunk_walk import drunk_walk
 from modeling_simulation.midsquare import midsquare
 from modeling_simulation.ibovespa_distribution import ibovespa_distribution_pdf
-from finance.sharpe_optimization import sharpe_optimization  # Importando a função p_sp_max
-from ai.health_insurance import nn_insurence  
+from finance.sharpe_optimization import (
+    sharpe_optimization,
+)
+from ai.health_insurance import nn_insurence
 from modeling_simulation.actuar import actuar_pdf
 from ai.census_income import ml_census_income
+from finance.american_wallet import american_wallet_html
+from linear_regression.multiple_linear_regression import m_linear_regression_journal
+from ai.wine import wine_html
+
 
 def about_page():
     raw_url = (
@@ -20,11 +26,11 @@ def about_page():
         st.image("pictures/me_picture.jpg", width=150)
     with col2:
         st.title("Bem-vindo ao meu site Streamlit!")
-    
+
     st.markdown(response.text)
 
 
-def modeling_simulation_page(option):
+def statistics_page(option):
     if option == "Drunk Walk Simulation":
         drunk_walk()
     elif option == "Midsquare Generator":
@@ -35,18 +41,26 @@ def modeling_simulation_page(option):
         ibovespa_distribution_pdf()
     elif option == "Actuarial Modeling with the Actuar Package":
         actuar_pdf()
+    elif option == "Multiple Linear Regression for Journal":
+        m_linear_regression_journal()
 
 
 def finance_page(option):
-    if option == "Portfolio Optimization":
+    if option == "Portfolio Sharpe Optimization":
         sharpe_optimization()
+    if option == "EUA Portfolio Analysis":
+        american_wallet_html()
+
 
 def ai_page(option):
     if option == "Neural Networks in Health Insurance":
         nn_insurence()
     if option == "Machine Learning for Census Income":
         ml_census_income()
-        
+    if option == "Machine Learning for Wine Quality":
+        wine_html()
+
+
 def social_links():
     st.sidebar.title("Social Links")
     col1, col2 = st.sidebar.columns(2)
@@ -101,6 +115,7 @@ def main():
             "Linear Congruential Generator",
             "Actuarial Modeling with the Actuar Package",
             "Ibovespa Returns Distribution",
+            "Multiple Linear Regression for Journal",
         ],
         key="stats_option",
         on_change=reset_selection,
@@ -113,7 +128,7 @@ def main():
     st.sidebar.header("💰 Finance")
     finance_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Portfolio Optimization"],
+        ["Portfolio Sharpe Optimization", "EUA Portfolio Analysis"],
         key="finance_option",
         on_change=reset_selection,
         args=("finance_option",),
@@ -125,19 +140,19 @@ def main():
     st.sidebar.header("🧠 Artificial Intelligence")
     ai_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Neural Networks in Health Insurance", "Machine Learning for Census Income"],
+        ["Neural Networks in Health Insurance", "Machine Learning for Census Income", "Machine Learning for Wine Quality"],
         key="ai_option",
         on_change=reset_selection,
         args=("ai_option",),
     )
 
-    social_links()  # Exibe os links sociais
+    social_links()
 
     # Lógica de navegação
     if stats_option:
-        modeling_simulation_page(stats_option)
+        statistics_page(stats_option)
     elif finance_option:
-        finance_page(finance_option)  # Passa a opção para a função finance_page
+        finance_page(finance_option)
     elif ai_option:
         ai_page(ai_option)
     else:

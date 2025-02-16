@@ -25,8 +25,6 @@ def nn_insurence():
     * **Teste t de Student** para avaliar a diferença entre variáveis binárias e numéricas;
     * **Análise de correlação** para identificar relações entre variáveis;
     * **Teste ANOVA** para examinar associações entre variáveis categóricas multiníveis e variáveis numéricas.
-
-    Esse estudo fornece uma base sólida para a construção de modelos preditivos mais robustos e eficientes no contexto de seguros de saúde.
     """
     )
 

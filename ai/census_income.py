@@ -12,7 +12,7 @@ def ml_census_income():
         )
 
     st.markdown(
-        """
+    """
       O presente estudo teve como foco uma **análise exploratória aprofundada** do conjunto de dados do **Censo dos EUA**, disponibilizado no repositório da UCI. O principal objetivo foi compreender as relações entre as variáveis e identificar padrões que permitissem a classificação da renda das pessoas em duas categorias: **≤50K e >50K**.
 
       Esse projeto foi desenvolvido no contexto da disciplina **IF699 - Aprendizagem de Máquina**, oferecida pelo **Centro de Informática da Universidade Federal de Pernambuco (CIn-UFPE)**, em colaboração com [**Arthur Bezerra Calado**](https://github.com/arthur-calado) e **Pedro Henrique Sarmento de Paula**, ambos alunos do CIn-UFPE.
@@ -24,7 +24,7 @@ def ml_census_income():
       - **Implementação de Redes Neurais Artificiais (RNA)**, utilizadas para a classificação da renda.  
 
       O estudo não apenas evidenciou padrões interessantes nos dados, mas também demonstrou a aplicabilidade das **Redes Neurais** na modelagem de problemas de classificação no contexto socioeconômico.
-      """
+    """
     )
     # URL do HTML convertido
     html_url = "https://raw.githubusercontent.com/gabrieldadcarvalho/AM-GRAD-2024-1/refs/heads/main/adult_uc_irvine/PJT-AM.html"
