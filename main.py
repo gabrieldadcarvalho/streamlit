@@ -13,7 +13,7 @@ from ai.census_income import ml_census_income
 from finance.american_wallet import american_wallet_html
 from linear_regression.multiple_linear_regression import m_linear_regression_journal
 from ai.wine import wine_html
-
+from finance.sulamerica import sulamericaPDF
 
 def about_page():
     raw_url = (
@@ -50,7 +50,8 @@ def finance_page(option):
         sharpe_optimization()
     if option == "EUA Portfolio Analysis":
         american_wallet_html()
-
+    if option == "Business Case - SulAmérica Seguros":
+        sulamericaPDF()
 
 def ai_page(option):
     if option == "Neural Networks in Health Insurance":
@@ -128,7 +129,7 @@ def main():
     st.sidebar.header("💰 Finance")
     finance_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Portfolio Sharpe Optimization", "EUA Portfolio Analysis"],
+        ["Portfolio Sharpe Optimization", "EUA Portfolio Analysis", "Business Case - SulAmérica Seguros"],
         key="finance_option",
         on_change=reset_selection,
         args=("finance_option",),
