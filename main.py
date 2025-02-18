@@ -15,6 +15,7 @@ from linear_regression.multiple_linear_regression import m_linear_regression_jou
 from ai.wine import wine_html
 from finance.sulamerica import sulamericaPDF
 
+
 def about_page():
     raw_url = (
         "https://raw.githubusercontent.com/gabrieldacarvalho/streamlit/main/README.md"
@@ -52,6 +53,7 @@ def finance_page(option):
         american_wallet_html()
     if option == "Business Case - SulAmérica Seguros":
         sulamericaPDF()
+
 
 def ai_page(option):
     if option == "Neural Networks in Health Insurance":
@@ -129,7 +131,11 @@ def main():
     st.sidebar.header("💰 Finance")
     finance_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Portfolio Sharpe Optimization", "EUA Portfolio Analysis", "Business Case - SulAmérica Seguros"],
+        [
+            "Portfolio Sharpe Optimization",
+            "EUA Portfolio Analysis",
+            "Business Case - SulAmérica Seguros",
+        ],
         key="finance_option",
         on_change=reset_selection,
         args=("finance_option",),
@@ -141,7 +147,11 @@ def main():
     st.sidebar.header("🧠 Artificial Intelligence")
     ai_option = st.sidebar.radio(
         "Choose a Model:",
-        ["Neural Networks in Health Insurance", "Machine Learning for Census Income", "Machine Learning for Wine Quality"],
+        [
+            "Neural Networks in Health Insurance",
+            "Machine Learning for Census Income",
+            "Machine Learning for Wine Quality",
+        ],
         key="ai_option",
         on_change=reset_selection,
         args=("ai_option",),
