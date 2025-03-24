@@ -379,68 +379,70 @@ def sharpe_optimization():
         \n3. **Taxa Livre de Risco:** Ao selecionar um índice brasileiro, a taxa livre de risco será automaticamente configurada como a taxa SELIC, calculada com base em uma curva de 252 dias. Caso o índice escolhido seja dos Estados Unidos, a taxa livre de risco será ajustada para refletir o rendimento do Título de 1 ano dos EUA.\
         \n4. **Resultado:** Após inserir todas as informações necessárias, a calculadora fornecerá a alocação para a carteira com o **maior índice de Sharpe** e outra para **minimizar o risco**, considerando o período da janela especificada e a taxa livre de risco."
     )
-
-    selected_assets = st.radio(
-        "Selecione o índice de ativos a ser analisados:",
-        ("IBOVESPA", "IBXL", "S&P 500"),
-        format_func=lambda x: (
-            "IBOVESPA" if x == "IBOVESPA" else "IBXL" if x == "IBXL" else "S&P 500"
-        ),
+    st.error(
+        "Aviso: Esta página está em manutenção. Por favor, tente novamente mais tarde."
     )
+    # selected_assets = st.radio(
+    #     "Selecione o índice de ativos a ser analisados:",
+    #     ("IBOVESPA", "IBXL", "S&P 500"),
+    #     format_func=lambda x: (
+    #         "IBOVESPA" if x == "IBOVESPA" else "IBXL" if x == "IBXL" else "S&P 500"
+    #     ),
+    # )
 
-    window_date = st.slider("**Escolha o tamanho da janela de data:**", 0, 18250, 0)
-    if window_date == 0:
-        st.warning("Selecione um tamanho de janela de data.")
-        return
+    # window_date = st.slider("**Escolha o tamanho da janela de data:**", 0, 18250, 0)
+    # if window_date == 0:
+    #     st.warning("Selecione um tamanho de janela de data.")
+    #     return
 
-    if selected_assets == "IBOVESPA":
-        selected_assets = get_ibov()
-        rate = get_selic_rate()
-        st.success(
-            f'**Taxa de Juros na curva 252 ({date.today().strftime("%d/%m/%Y")}): {rate}% a.a**'
-        )
-        if selected_assets is None:
-            st.error("Falha ao carregar lista do IBOVESPA.")
-            return
-    elif selected_assets == "S&P 500":
-        selected_assets = get_spx()
-        rate = get_eua_curve()
-        selected_assets = list(map(lambda x: x.replace(".", "-"), selected_assets))
-        st.success(
-            f'**Rendimento do Título de 1 ano dos EUA em ({date.today().strftime("%d/%m/%Y")}): {rate}% a.a**'
-        )
-        if selected_assets is None:
-            st.error("Falha ao carregar lista do S&P 500.")
-            return
-    elif selected_assets == "IBXL":
-        selected_assets = get_ibxl()
-        rate = get_selic_rate()
-        if selected_assets is None:
-            st.error("Falha ao carregar lista do IBXL.")
-            return
-        st.success(
-            f'**Taxa de Juros na curva 252 ({date.today().strftime("%d/%m/%Y")}): {rate}% a.a**'
-        )
-    if not selected_assets:
-        st.warning("Nenhum índice selecionado.")
-        return
+    # if selected_assets == "IBOVESPA":
+    #     selected_assets = get_ibov()
+    #     rate = get_selic_rate()
+    #     st.success(
+    #         f'**Taxa de Juros na curva 252 ({date.today().strftime("%d/%m/%Y")}): {rate}% a.a**'
+    #     )
+    #     if selected_assets is None:
+    #         st.error("Falha ao carregar lista do IBOVESPA.")
+    #         return
+    # elif selected_assets == "S&P 500":
+    #     selected_assets = get_spx()
+    #     rate = get_eua_curve()
+    #     selected_assets = list(map(lambda x: x.replace(".", "-"), selected_assets))
+    #     st.success(
+    #         f'**Rendimento do Título de 1 ano dos EUA em ({date.today().strftime("%d/%m/%Y")}): {rate}% a.a**'
+    #     )
+    #     if selected_assets is None:
+    #         st.error("Falha ao carregar lista do S&P 500.")
+    #         return
+    # elif selected_assets == "IBXL":
+    #     selected_assets = get_ibxl()
+    #     rate = get_selic_rate()
+    #     if selected_assets is None:
+    #         st.error("Falha ao carregar lista do IBXL.")
+    #         return
+    #     st.success(
+    #         f'**Taxa de Juros na curva 252 ({date.today().strftime("%d/%m/%Y")}): {rate}% a.a**'
+    #     )
+    # if not selected_assets:
+    #     st.warning("Nenhum índice selecionado.")
+    #     return
 
-    data = load_data(selected_assets, window_date)
-    st.subheader("Últimos 5 dias de preços de cada ativo:")
-    asset_stats = calculate_statistics(data)
-    data.columns = data.columns.str.replace(".SA", "")
-    st.dataframe(data.tail())
-    st.subheader("Estatísticas de cada ativo:")
-    asset_stats.columns = asset_stats.columns.str.replace(".SA", "")
-    st.dataframe(asset_stats)
+    # data = load_data(selected_assets, window_date)
+    # st.subheader("Últimos 5 dias de preços de cada ativo:")
+    # asset_stats = calculate_statistics(data)
+    # data.columns = data.columns.str.replace(".SA", "")
+    # st.dataframe(data.tail())
+    # st.subheader("Estatísticas de cada ativo:")
+    # asset_stats.columns = asset_stats.columns.str.replace(".SA", "")
+    # st.dataframe(asset_stats)
 
-    returns = function_returns(data)
+    # returns = function_returns(data)
 
-    max_sharpe_portfolio, min_risk_portfolio = optimize_portfolio(
-        returns, rate, selected_assets
-    )
-    trets, tvols = compute_volatility_curve(returns, selected_assets)
+    # max_sharpe_portfolio, min_risk_portfolio = optimize_portfolio(
+    #     returns, rate, selected_assets
+    # )
+    # trets, tvols = compute_volatility_curve(returns, selected_assets)
 
-    display_results(
-        max_sharpe_portfolio, min_risk_portfolio, tvols, trets, selected_assets
-    )
+    # display_results(
+    #     max_sharpe_portfolio, min_risk_portfolio, tvols, trets, selected_assets
+    # )
