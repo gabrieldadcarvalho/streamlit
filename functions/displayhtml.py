@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 
-def displayHTML(html_url, name):
+def downloadHTML(html_url, name):
     # Faz o download do arquivo HTML
     response = requests.get(html_url)
 
@@ -15,8 +15,5 @@ def displayHTML(html_url, name):
             file_name=f"{name}.html",
             mime="application/html",
         )
-        # Exibe no Streamlit
-        st.components.v1.html(html_content, height=900, scrolling=True)
-
     else:
         st.error(f"Erro ao carregar o HTML. Status: {response.status_code}")

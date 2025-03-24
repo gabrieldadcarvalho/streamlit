@@ -22,4 +22,4 @@ def american_wallet_html():
     html_url = "https://github.com/gabrieldadcarvalho/capital_market/raw/main/1_activity/1_activity_capital_market.html"
 
     # Exibir o PDF e botão de download
-    displayHTML(html_url, "american_wallet")
+    downloadHTML(html_url, "american_wallet")

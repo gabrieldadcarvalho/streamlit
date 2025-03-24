@@ -27,4 +27,4 @@ def sulamericaPDF():
     pdf_url = "https://github.com/gabrieldadcarvalho/streamlit/raw/main/finance/pdf/sulamerica.pdf"
 
     # Exibir o PDF e botão de download
-    displayPDF(pdf_url, "business_case_sulamerica")
+    downloadPDF(pdf_url, "business_case_sulamerica")

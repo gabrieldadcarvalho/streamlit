@@ -26,4 +26,4 @@ def ibovespa_distribution_pdf():
     pdf_url = "https://github.com/gabrieldadcarvalho/modeling_simulatiton/raw/main/works/ibov_index/data_simulation.pdf"
 
     # Exibir o PDF
-    displayPDF(pdf_url, "ibovespa_distribution")
+    downloadPDF(pdf_url, "ibovespa_distribution")

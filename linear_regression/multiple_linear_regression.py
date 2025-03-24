@@ -19,7 +19,7 @@ def m_linear_regression_journal():
     """
     )
 
-    html_url = "https://github.com/gabrieldadcarvalho/analise_regressao/raw/main/multiple_linear_regression/journals/trabalho_regressao_jornals.html"
+    pdf_url = "https://github.com/gabrieldadcarvalho/analise_regressao/raw/main/multiple_linear_regression/journals/regression_jornals.pdf"
 
     # Exibir o PDF e botão de download
-    displayHTML(html_url, "regression_jornals")
+    downloadPDF(pdf_url, "regression_jornals")

@@ -1,9 +1,8 @@
 import streamlit as st
-from streamlit_pdf_viewer import pdf_viewer
 import requests
 
 
-def displayPDF(url, name):
+def downloadPDF(url, name):
     # Fazendo o download do PDF
     response = requests.get(url)
 
@@ -15,7 +14,5 @@ def displayPDF(url, name):
             file_name=f"{name}.pdf",
             mime="application/pdf",
         )
-        # Exibe o PDF utilizando o conteúdo binário
-        pdf_viewer(input=response.content, width=700)
     else:
         st.error(f"Erro ao carregar o PDF. Status: {response.status_code}")
