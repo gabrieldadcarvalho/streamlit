@@ -13,6 +13,7 @@ from ai.census_income import ml_census_income
 from finance.american_wallet import american_wallet_html
 from linear_regression.multiple_linear_regression import m_linear_regression_journal
 from ai.wine import wine_html
+from ai.brainscannet import brainscannet
 from finance.sulamerica import sulamericaPDF
 
 
@@ -56,6 +57,8 @@ def finance_page(option):
 
 
 def ai_page(option):
+    if option == "BrainScanNet"
+        brainscannet()
     if option == "Neural Networks in Health Insurance":
         nn_insurence()
     if option == "Machine Learning for Census Income":
@@ -147,7 +150,8 @@ def main():
     st.sidebar.header("Artificial Intelligence")
     ai_option = st.sidebar.radio(
         "Choose a Model:",
-        [
+        [  
+            "BrainScanNet",
             "Neural Networks in Health Insurance",
             "Machine Learning for Census Income",
             "Machine Learning for Wine Quality",
