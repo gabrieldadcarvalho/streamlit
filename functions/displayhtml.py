@@ -10,7 +10,7 @@ def downloadHTML(html_url, name):
         # Obtém o conteúdo do HTML
         html_content = response.text
         st.download_button(
-            label="📥 Baixar HTML",
+            label="Baixar HTML",
             data=html_content,
             file_name=f"{name}.html",
             mime="application/html",

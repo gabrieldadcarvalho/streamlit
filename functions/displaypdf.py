@@ -9,7 +9,7 @@ def downloadPDF(url, name):
     if response.status_code == 200:
         # Criando um botão para download do PDF
         st.download_button(
-            label="📥 Baixar PDF",
+            label="Baixar PDF",
             data=response.content,
             file_name=f"{name}.pdf",
             mime="application/pdf",
