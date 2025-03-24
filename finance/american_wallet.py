@@ -1,5 +1,5 @@
 import streamlit as st
-from functions.displayhtml import displayHTML
+from functions.displayhtml import downloadHTMLHTML
 
 
 def american_wallet_html():

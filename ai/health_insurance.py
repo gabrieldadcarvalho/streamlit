@@ -1,5 +1,5 @@
 import streamlit as st
-from functions.displaypdf import displayPDF
+from functions.displaypdf import downloadPDF
 
 
 def nn_insurence():

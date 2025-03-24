@@ -1,5 +1,5 @@
 import streamlit as st
-from functions.displaypdf import displayPDF
+from functions.displaypdf import downloadPDF
 
 def actuar_pdf():
     col1, col2 = st.columns([1, 5])

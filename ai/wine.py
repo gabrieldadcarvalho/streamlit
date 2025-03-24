@@ -1,5 +1,5 @@
 import streamlit as st
-from functions.displayhtml import displayHTML
+from functions.displayhtml import downloadHTML
 
 
 def wine_html():

@@ -1,5 +1,5 @@
 import streamlit as st
-from functions.displayhtml import displayHTML
+from functions.displaypdf import downloadPDF
 
 
 def m_linear_regression_journal():
