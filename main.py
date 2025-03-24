@@ -97,7 +97,7 @@ def main():
         st.session_state["ai_option"] = None
 
     # Seção "About Me"
-    st.sidebar.header("📌 About Me")
+    st.sidebar.header("About Me")
     about_option = st.sidebar.radio(
         "Select an option:",
         ["Resume"],
@@ -109,7 +109,7 @@ def main():
     st.sidebar.markdown("---")  # Separador
 
     # Seção de Estatística
-    st.sidebar.header("📊 Statistics")
+    st.sidebar.header("Statistics")
     stats_option = st.sidebar.radio(
         "Choose a Model:",
         [
@@ -128,7 +128,7 @@ def main():
     st.sidebar.markdown("---")  # Separador
 
     # Seção de Finanças
-    st.sidebar.header("💰 Finance")
+    st.sidebar.header("Finance")
     finance_option = st.sidebar.radio(
         "Choose a Model:",
         [
@@ -144,7 +144,7 @@ def main():
     st.sidebar.markdown("---")  # Separador
 
     # Seção de Inteligência Artificial
-    st.sidebar.header("🧠 Artificial Intelligence")
+    st.sidebar.header("Artificial Intelligence")
     ai_option = st.sidebar.radio(
         "Choose a Model:",
         [
