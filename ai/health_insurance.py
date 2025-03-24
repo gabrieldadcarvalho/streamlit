@@ -31,4 +31,4 @@ def nn_insurence():
     pdf_url = "https://github.com/gabrieldadcarvalho/neural_network/raw/main/projeto/Neural_Network_Projetc.pdf"
 
     # Exibir o PDF
-    displayPDF(pdf_url, "nn_health_insurance")
+    downloadPDF(pdf_url, "nn_health_insurance")
