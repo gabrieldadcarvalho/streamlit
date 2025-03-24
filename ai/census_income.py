@@ -30,4 +30,4 @@ def ml_census_income():
     html_url = "https://raw.githubusercontent.com/gabrieldadcarvalho/AM-GRAD-2024-1/refs/heads/main/adult_uc_irvine/PJT-AM.html"
 
     # Chama a função para exibir
-    downloadPDF(html_url, "PJT-AM")
+    downloadHTML(html_url, "PJT-AM")

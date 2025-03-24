@@ -29,4 +29,4 @@ def wine_html():
     html_url = "https://raw.githubusercontent.com/gabrieldadcarvalho/AM-GRAD-2024-1/refs/heads/main/wine_quality/analitic_wine.html"
 
     # Chama a função para exibir
-    downloadPDF(html_url, "wine_quality")
+    downloadHTML(html_url, "wine_quality")
