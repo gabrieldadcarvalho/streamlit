@@ -57,7 +57,7 @@ def finance_page(option):
 
 
 def ai_page(option):
-    if option == "BrainScanNet"
+    if option == "BrainScanNet":
         brainscannet()
     if option == "Neural Networks in Health Insurance":
         nn_insurence()
