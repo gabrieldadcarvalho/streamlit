@@ -1,17 +1,17 @@
 import streamlit as st
 import requests
-from modeling_simulation.congruence import congruence
-from modeling_simulation.drunk_walk import drunk_walk
-from modeling_simulation.midsquare import midsquare
-from modeling_simulation.ibovespa_distribution import ibovespa_distribution_pdf
+from modeling-simulation.congruence import congruence
+from modeling-simulation.drunk_walk import drunk_walk
+from modeling-simulation.midsquare import midsquare
+from modeling-simulation.ibovespa-distribution import ibovespa_distribution_pdf
 from finance.sharpe_optimization import (
     sharpe_optimization,
 )
 from ai.health_insurance import nn_insurence
-from modeling_simulation.actuar import actuar_pdf
+from modeling-simulation.actuar import actuar_pdf
 from ai.census_income import ml_census_income
 from finance.american_wallet import american_wallet_html
-from linear_regression.multiple_linear_regression import m_linear_regression_journal
+from linear-regression.multiple-linear-regression import m_linear_regression_journal
 from ai.wine import wine_html
 from ai.brainscannet import brainscannet
 from finance.sulamerica import sulamericaPDF
