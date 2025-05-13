@@ -23,7 +23,7 @@ def actuar_pdf():
     """
     )
 
-    pdf_url = "https://github.com/gabrieldadcarvalho/Introduction-to-loss-of-variables-modeling-in-actuarial-science/raw/main/abstract_actuar.pdf"
+    pdf_url = "https://github.com/gabrieldadcarvalho/loss_of_variables/raw/main/abstract/actuar/abstract_actuar.pdf"
 
     # Exibir o PDF e botão de download
     downloadPDF(pdf_url, "abstract_actuar")
